@@ -1,18 +1,21 @@
-import {cookies, headers} from 'next/headers'
 import SignInOptions from '@/components/client/SignInOptions'
-import {getLangType, getLang} from '@/lang'
+import {pickSearchParam} from '@/utils'
+import {checkUserLoggedInAndRedirect, selectLang} from '@/app/actions'
 
+export interface SignInSearchParams {
+    group: string | string[] | undefined,
+    return: string | string[] | undefined,
+}
 
-export default function Home() {
-    const session = cookies().get('session')?.value
-    const userLang = cookies().get('lang')?.value
-    const acceptLanguage = headers().get('accept-language')
-    const langType = getLangType(acceptLanguage, userLang)
-    const lang = getLang(langType)
+export default async function Home({searchParams}: { searchParams: SignInSearchParams }) {
+    const returnTo = pickSearchParam(searchParams.return)
+
+    // if user is already logged in, redirect to the specify page
+    await checkUserLoggedInAndRedirect({returnTo})
+
+    const lang = (await selectLang()).lang
 
     return <div className="w-full min-h-[calc(100svh-48px)] flex flex-row justify-center items-center relative z-10">
-        {session}
-
         <div className="w-[360px] mx-auto p-4">
             <div className="font-semibold mb-6 text-lg">{lang['Sign In']}</div>
             <SignInOptions lang={lang}/>

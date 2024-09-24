@@ -2,22 +2,20 @@ import type {Metadata} from "next"
 import "@/styles/globals.css"
 import Head from 'next/head'
 import {ReactNode} from "react"
-import {getLangType} from '@/lang'
-import {cookies, headers} from 'next/headers'
 import LangSwitcher from '@/components/client/LangSwitcher'
 import {Toaster} from '@/components/client/shadcn/Toast/toaster'
+import Modals from '@/components/client/Modal/Modals'
+import {selectLang} from '@/app/actions'
 
 export const metadata: Metadata = {
     title: "Social Layer",
     description: "Social Layer",
 }
 
-export default function RootLayout({
+export default async function RootLayout({
     children,
 }: Readonly<{ children: ReactNode }>) {
-    const userLang = cookies().get('lang')?.value
-    const acceptLanguage = headers().get('accept-language')
-    const langType = getLangType(acceptLanguage, userLang)
+    const langType = (await selectLang()).type
 
     return (<html lang={langType}>
         <Head>
@@ -36,17 +34,19 @@ export default function RootLayout({
                         </div>
                         <div className="flex-row-item-center text-xs">
                             <div className="cursor-pointer">
-                                <LangSwitcher value={langType} refresh={true} />
+                                <LangSwitcher value={langType} refresh={true}/>
                             </div>
                         </div>
                     </div>
                 </header>
                 <div className="relative">
-                    <div className="page-bg" />
+                    <div className="page-bg"/>
                     {children}
                 </div>
             </div>
-            <Toaster />
+            <div className="relative z-[9998]"><Modals/></div>
+            <div className="relative z-[9999]"><Toaster/></div>
         </body>
-    </html>)
+    </html>
+    )
 }

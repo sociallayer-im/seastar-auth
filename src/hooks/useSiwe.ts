@@ -1,11 +1,10 @@
-import {Connector, useAccount, useConnect, useSignMessage, useDisconnect} from 'wagmi'
+import {Connector, useConnect, useDisconnect, useSignMessage} from 'wagmi'
 import {signInWithWallet} from '@/service/solar'
 
 export default function useSiwe() {
     const {connect} = useConnect()
     const {signMessage} = useSignMessage()
-    const {isConnected} = useAccount()
-    const { disconnect } = useDisconnect()
+    const {disconnect} = useDisconnect()
 
 
     const createSiweMessag = async function (address: string) {
@@ -51,13 +50,25 @@ Issued At: ${new Date().toISOString()}`
         })
     }
 
-    const siwe = async (connector: Connector) => {
-        disconnect()
-        const account = (await handleConnect(connector))[0]
-        const message = await createSiweMessag(account)
-        const signature = await handleSignMessage(message, account)
-        const login = await signInWithWallet({signature, message})
-        return login
+    const siwe = async (connector: Connector): Promise<{ auth_token: string, id: string }> => {
+        return new Promise(async (resolve, reject) => {
+            disconnect(undefined, {
+                onSuccess: async () => {
+                    try {
+                        const account = (await handleConnect(connector))[0]
+                        const message = await createSiweMessag(account)
+                        const signature = await handleSignMessage(message, account)
+                        const login = await signInWithWallet({signature, message})
+                        resolve(login)
+                    } catch (e) {
+                        reject(e)
+                    }
+                },
+                onError: (e) => {
+                    reject(e)
+                }
+            })
+        })
     }
 
 

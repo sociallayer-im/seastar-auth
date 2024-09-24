@@ -1,12 +1,13 @@
 'use client'
 
 import {dictionaries} from '@/lang'
+import Cookies from 'js-cookie'
 
 export default function LangSwitcher(props: { value: keyof typeof dictionaries, refresh?: boolean }) {
     const opts = Object.keys(dictionaries) as Array<keyof typeof dictionaries>
 
     const handleSelect = (lang: keyof typeof dictionaries) => {
-        document.cookie = `lang=${lang}; path=/;`
+        Cookies.set('lang', lang, {expires: 365})
         if (props.refresh) {
             window.location.reload()
         }
