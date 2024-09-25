@@ -6,6 +6,7 @@ import LangSwitcher from '@/components/client/LangSwitcher'
 import {Toaster} from '@/components/client/shadcn/Toast/toaster'
 import Modals from '@/components/client/Modal/Modals'
 import {selectLang} from '@/app/actions'
+import Image from 'next/image'
 
 export const metadata: Metadata = {
     title: "Social Layer",
@@ -29,7 +30,7 @@ export default async function RootLayout({
                     <div className="page-width w-full flex-row-item-center justify-between items-center h-[48px]">
                         <div className="flex-row-item-center">
                             <a href="/">
-                                <img src="/images/logo_horizontal.svg" alt="Social Layer"/>
+                                <Image src="/images/logo_horizontal.svg" alt="Social Layer"/>
                             </a>
                         </div>
                         <div className="flex-row-item-center text-xs">
