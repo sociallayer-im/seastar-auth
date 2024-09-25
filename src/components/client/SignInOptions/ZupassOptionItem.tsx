@@ -14,12 +14,14 @@ export default function ZupassOptionItem() {
         try {
             const authToken = await login()
             await clientCheckUserLoggedInAndRedirect(authToken)
-        } catch (e: unknown) {
-            toast({
-                title: 'Sign in with zupass',
-                description: (e as Error).message,
-                variant: 'destructive'
-            })
+        } catch (error: unknown) {
+            if (!(error as Error).message.includes('popupClosed')) {
+                toast({
+                    title: 'Sign in with zupass',
+                    description: (error as Error).message,
+                    variant: 'destructive'
+                })
+            }
         } finally {
             closeModal(modalId)
         }

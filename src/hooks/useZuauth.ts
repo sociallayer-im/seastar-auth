@@ -1,10 +1,10 @@
-import {zuAuthPopup} from "@pcd/zuauth"
 import {edge_tickets} from '@/service/zuauth/edge_tickets'
 import {zuzalu_tickets} from '@/service/zuauth/zuzalu_tickets'
 
 export default function useZuauth() {
 
     const login = async () => {
+        const zuAuthPopup = (await import('@pcd/zuauth')).zuAuthPopup
         const result = await zuAuthPopup({
             zupassUrl: 'https://zupass.org',
             fieldsToReveal: {
@@ -43,7 +43,7 @@ export default function useZuauth() {
 
             return data.auth_token as string
         } else {
-            throw new Error('Invalid ticket zupass ticket type')
+            throw new Error(`Zupass login failed: ${result.type}`)
         }
     }
 
