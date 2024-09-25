@@ -4,7 +4,7 @@ import WalletOptionItem from '@/components/client/SignInOptions/WalletOptionItem
 import useSiwe from '@/hooks/useSiwe'
 import {useToast} from '@/components/client/shadcn/Toast/use-toast'
 import useModals from '@/components/client/Modal/useModal'
-import {clientRedirect, setAuth} from '@/utils'
+import {clientCheckUserLoggedInAndRedirect, setAuth} from '@/utils'
 
 export default function WalletOptions() {
     const {connectors} = useConnect()
@@ -30,7 +30,7 @@ export default function WalletOptions() {
         try {
             const res = await siwe(connector)
             setAuth(res.auth_token)
-            clientRedirect()
+            clientCheckUserLoggedInAndRedirect(res.auth_token)
         } catch (error: unknown) {
             const message = error instanceof Error
                 ? error.message
@@ -48,7 +48,7 @@ export default function WalletOptions() {
         }
     }
 
-    return <div className="flex flex-col">
+    return <>
         {
             sortedConnectors.map((connector: Connector, index: number) => {
                 return <WalletOptionItem key={index}
@@ -56,6 +56,6 @@ export default function WalletOptions() {
                     connector={connector}/>
             })
         }
-    </div>
+    </>
 }
 

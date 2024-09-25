@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import {AUTH_FIELD} from '@/utils'
 
 // This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
@@ -11,4 +12,13 @@ export function middleware(request: NextRequest) {
         response.cookies.set('return', returnTo)
         return response
     }
+
+    const authToken = request.cookies.get(AUTH_FIELD)
+    if (!authToken && request.nextUrl.pathname !== '/') {
+        return NextResponse.redirect(request.nextUrl.origin)
+    }
+}
+
+export const config = {
+    matcher: [ '/', '/register', '/bind-email', '/verify-bind-email'],
 }

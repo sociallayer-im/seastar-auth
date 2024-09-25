@@ -1,4 +1,4 @@
-import FormVerifyEmail from './FormVerifyEmail'
+import FormVerifyBindEmail from './FormVerifyBindEmail'
 import {selectLang} from '@/app/actions'
 import {pickSearchParam} from '@/utils'
 import {redirect} from 'next/navigation'
@@ -15,7 +15,7 @@ export default async function EmailVerification({searchParams}: {
 
     return <div className="w-full min-h-[calc(100svh-48px)] flex flex-row justify-center items-center relative z-10">
         <div className="max-w-[400px] mx-auto p-4">
-            <a className="hover:text-primary my-3 inline-flex flex-row items-center"  href='/'>
+            <a className="hover:text-primary my-3 inline-flex flex-row items-center"  href='/bind-email'>
                 <i className="uil-arrow-left text-xl"/>
                 <span className="text-sm">{lang['Back']}</span>
             </a>
@@ -25,7 +25,7 @@ export default async function EmailVerification({searchParams}: {
                 {lang['to complete your account set-up']}
             </div>
             <div className="my-6">
-                <FormVerifyEmail email={email} />
+                <FormVerifyBindEmail email={email} />
             </div>
         </div>
     </div>

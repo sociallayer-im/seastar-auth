@@ -1,5 +1,4 @@
 import SignInOptions from '@/components/client/SignInOptions'
-import {pickSearchParam} from '@/utils'
 import {checkUserLoggedInAndRedirect, selectLang} from '@/app/actions'
 
 export interface SignInSearchParams {
@@ -7,11 +6,9 @@ export interface SignInSearchParams {
     return: string | string[] | undefined,
 }
 
-export default async function Home({searchParams}: { searchParams: SignInSearchParams }) {
-    const returnTo = pickSearchParam(searchParams.return)
-
+export default async function Home() {
     // if user is already logged in, redirect to the specify page
-    await checkUserLoggedInAndRedirect({returnTo})
+    await checkUserLoggedInAndRedirect()
 
     const lang = (await selectLang()).lang
 

@@ -2,10 +2,10 @@
 
 import InputPinCode from '@/components/client/InputPinCode'
 import {useEffect, useState} from 'react'
-import {verifyEmail} from '@/service/solar'
+import {setVerifiedEmail} from '@/service/solar'
 import {useToast} from '@/components/client/shadcn/Toast/use-toast'
 import useModal from '@/components/client/Modal/useModal'
-import {clientCheckUserLoggedInAndRedirect, setAuth} from '@/utils'
+import {clientCheckUserLoggedInAndRedirect, getAuth} from '@/utils'
 
 export default function FormVerifyBindEmail(props: {email: string}) {
     const [code, setCode] = useState('')
@@ -17,16 +17,21 @@ export default function FormVerifyBindEmail(props: {email: string}) {
             if (code.length === 5) {
                 const modalId = showLoading()
                 try {
-                    const res = await verifyEmail({email: props.email, code})
-                    setAuth(res.auth_token)
-                    await clientCheckUserLoggedInAndRedirect(res.auth_token)
+                    const authToken = getAuth()
+                    await setVerifiedEmail({email: props.email, code, auth_token: authToken!})
+                    toast({
+                        title: 'Bind Email',
+                        description: 'Bind email successfully',
+                    })
+                    setTimeout(() => {
+                        clientCheckUserLoggedInAndRedirect(authToken!)
+                    }, 3000)
                 } catch (error: unknown) {
                     toast({
-                        title: 'Email sign in',
-                        description: (error as Error).message ||  'Verify email failed',
+                        title: 'Bind Email',
+                        description: (error as Error).message ||  'Binding email failed',
                         variant: "destructive",
                     })
-                } finally {
                     closeModal(modalId)
                 }
             }
