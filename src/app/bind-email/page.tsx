@@ -8,6 +8,7 @@ export default async function BindEmail() {
     const currProfile = await getCurrProfile()
 
     if (!currProfile) {
+        console.log('BindEmail-redirect-to-root')
         redirect('/')
     }
 

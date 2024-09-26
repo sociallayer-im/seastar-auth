@@ -79,6 +79,7 @@ export default function RegisterForm(props: { lang: Dictionary }) {
         <label
             className={`${error ? 'input-error ' : ''}input flex flew-row w-full bg-gray-100 focus-within:outline-none focus-within:border-primary`}>
             <input
+                data-testid="username-input"
                 className="flex-1" type="text" name="username"
                 autoFocus={true}
                 maxLength={100}

@@ -15,6 +15,7 @@ export function middleware(request: NextRequest) {
 
     const authToken = request.cookies.get(AUTH_FIELD)
     if (!authToken && request.nextUrl.pathname !== '/') {
+        console.log('middleware-redirect-to-root')
         return NextResponse.redirect(request.nextUrl.origin)
     }
 }

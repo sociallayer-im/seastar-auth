@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "cypress:open": "cypress open"
   },
   "dependencies": {
     "@pcd/zuauth": "^1.4.5",
@@ -40,10 +41,12 @@
     "@storybook/nextjs": "^8.3.2",
     "@storybook/react": "8.3.2",
     "@storybook/test": "^8.3.2",
+    "@swimlane/cy-mockapi": "^3.0.0",
     "@types/js-cookie": "^3.0.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "cypress": "^13.15.0",
     "daisyui": "^4.12.10",
     "eslint": "^8",
     "eslint-config-next": "14.2.13",
