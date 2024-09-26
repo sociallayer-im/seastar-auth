@@ -31,7 +31,7 @@ export default function ZupassOptionItem() {
         onClick={handleZupassLogin}
         className={`cursor-pointer w-full shadow btn btn-md bg-[var(--background)] mb-3 justify-start`}
     >
-        <Image alt="Zupass" src={'/images/zupass.png'} className="w-6 h-6 mr-2 rounded"/>
+        <Image alt="Zupass" src={'/images/zupass.png'} width={24} height={24} className="w-6 h-6 mr-2 rounded"/>
         Zupass
     </div>
 }

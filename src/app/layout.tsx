@@ -30,7 +30,7 @@ export default async function RootLayout({
                     <div className="page-width w-full flex-row-item-center justify-between items-center h-[48px]">
                         <div className="flex-row-item-center">
                             <a href="/">
-                                <Image src="/images/logo_horizontal.svg" alt="Social Layer"/>
+                                <Image src="/images/logo_horizontal.svg" width={102} height={32} alt="Social Layer"/>
                             </a>
                         </div>
                         <div className="flex-row-item-center text-xs">

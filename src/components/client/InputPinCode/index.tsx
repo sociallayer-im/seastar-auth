@@ -37,6 +37,7 @@ export default function InputPinCode(props: { onChange?: (code: string) => void}
             })}
 
             <input
+                data-testid="pin-code-input"
                 ref={inputRef}
                 autoComplete={'off'}
                 autoFocus={true}
