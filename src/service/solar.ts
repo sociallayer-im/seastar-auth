@@ -172,3 +172,27 @@ export const setVerifiedEmail = async (props: {auth_token: string, email: string
 
     return data as { result: "ok" }
 }
+
+export const signinWithSolana = async (props: {sol_address: string, next_token: string}) => {
+    const response = await fetch(`${api}/profile/signin_with_solana`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            ...props,
+            address_source: 'solana'
+        })
+    })
+
+    if (!response.ok) {
+        throw new Error('Fail to sign in with solana: ' + response.statusText)
+    }
+
+    const data = await response.json()
+    if (data.result !== 'ok') {
+        throw new Error(data.message)
+    }
+
+    return data.auth_token as string
+}

@@ -27,7 +27,7 @@ export default function ModalWrapper({clickOutsideToClose = true, ...props}: {
 
         <div data-testid="modal-shell"
             onClick={handleClickOutside}
-            className="absolute z-0 left-0 top-0 w-[100vw] h-[100svh] bg-white opacity-30 blur-lg" />
+            className="absolute z-0 left-0 top-0 w-[100vw] h-[100svh] bg-white opacity-60 blur-2xl" />
 
         <div ref={contentRef} className="relative z-10 opacity-0 scale-95 transition-all duration-300">
             {props.content(props.close)}

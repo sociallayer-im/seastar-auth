@@ -1,7 +1,7 @@
 import useZuauth from '@/hooks/useZuauth'
 import useModal from '@/components/client/Modal/useModal'
 import {useToast} from '@/components/client/shadcn/Toast/use-toast'
-import {clientCheckUserLoggedInAndRedirect} from '@/utils'
+import {clientCheckUserLoggedInAndRedirect, setAuth} from '@/utils'
 import Image from 'next/image'
 
 export default function ZupassOptionItem() {
@@ -13,6 +13,7 @@ export default function ZupassOptionItem() {
         const modalId = showLoading()
         try {
             const authToken = await login()
+            setAuth(authToken)
             await clientCheckUserLoggedInAndRedirect(authToken)
         } catch (error: unknown) {
             if (!(error as Error).message.includes('popupClosed')) {
