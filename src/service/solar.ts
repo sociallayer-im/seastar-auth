@@ -100,7 +100,7 @@ export const signInWithZupass = async (props: {
     email: string,
     next_token: string
 }) => {
-    const response = await fetch(`${api}/profile/signin_with_zupass`, {
+    const response = await fetch(`${api}/profile/signin_with_multi_zupass`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
