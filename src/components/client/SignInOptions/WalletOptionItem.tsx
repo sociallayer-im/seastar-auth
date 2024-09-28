@@ -1,6 +1,5 @@
 import {Connector} from 'wagmi'
 import {useEffect, useMemo, useState} from 'react'
-import Image from 'next/image'
 
 export default function WalletOptionItem({
     connector,
