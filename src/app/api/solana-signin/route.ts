@@ -3,8 +3,8 @@ import { ed25519 } from '@noble/curves/ed25519'
 import {signinWithSolana} from '@/service/solar'
 
 export async function POST(req: Request) {
-    const {signature, address, message} = await req.json()
-    const verified = ed25519.verify(Uint8Array.from(signature), Uint8Array.from(message), Uint8Array.from(address))
+    const {signature, publicKey, address, message} = await req.json()
+    const verified = ed25519.verify(Uint8Array.from(signature), Uint8Array.from(message), Uint8Array.from(publicKey))
     if (!verified) {
         return NextResponse.json({
             result: 'failed',

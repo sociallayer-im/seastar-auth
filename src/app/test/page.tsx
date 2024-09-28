@@ -12,7 +12,7 @@ export default function TextPage() {
             }
         })
 
-       closeModal(id)
+        closeModal(id)
     }
 
     return <div>

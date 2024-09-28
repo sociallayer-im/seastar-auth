@@ -13,18 +13,16 @@ export default function BindEmailForm(props: { lang: Dictionary }) {
     const {showLoading, closeModal} = useModal()
     const {toast} = useToast()
 
-    const handleCheckEmail= (username: string) => {
-        if (!username) {
+    const handleSendPinCode = async () => {
+        if (!email) {
             setError('Please input email')
-        } else if (username.indexOf('@') === -1 || username.indexOf('.') === -1) {
+            return
+        } else if (email.indexOf('@') === -1 || email.indexOf('.') === -1) {
             setError('Invalid email format')
+            return
         } else {
             setError('')
         }
-    }
-
-    const handleSendPinCode = async () => {
-        if (error) return
 
         const modalId = showLoading()
         try {
@@ -61,9 +59,6 @@ export default function BindEmailForm(props: { lang: Dictionary }) {
                 autoFocus={true}
                 value={email}
                 placeholder={props.lang['Your email']}
-                onBlur={() => {
-                    handleCheckEmail(email.trim())
-                }}
                 onChange={(e) => {
                     setEmail(e.target.value)
                 }}/>

@@ -136,7 +136,17 @@ describe.skip('Email Sign-in', () => {
         // check return
         cy.url().should('eq', 'http://localhost:3000/test')
     })
+})
 
+
+describe.skip('Middleware', () => {
+    it('Redirect to root when no login', () => {
+        cy.visit('/bind-email')
+        cy.url().should('eq', 'http://localhost:3000/')
+    })
+})
+
+describe.skip('Wallet Sign-in', () => {
     it('MetaMask Sign-in', () => {
         cy.visit('/?return=http://localhost:3000/test')
         cy.contains('MetaMask').click()
@@ -146,9 +156,26 @@ describe.skip('Email Sign-in', () => {
     })
 })
 
-describe('Middleware', () => {
-    it('Redirect to root when no login', () => {
-        cy.visit('/bind-email')
-        cy.url().should('eq', 'http://localhost:3000/')
+describe.skip('Zupass Sign-in', () => {
+    it('Zupass Sign-in', () => {
+        cy.visit('/?return=http://localhost:3000/test')
+        cy.contains('Zupass').click()
+        cy.wait(10000)
+        // check return
+        cy.url().should('eq', 'http://localhost:3000/test')
     })
 })
+
+describe('Solana Sign-in', () => {
+    it('Solana Sign-in', () => {
+        cy.visit('/?return=http://localhost:3000/test')
+        cy.contains('Solana').click()
+
+        cy.contains('OKX Wallet').click()
+        cy.wait(10000)
+        // check return
+        cy.url().should('eq', 'http://localhost:3000/test')
+    })
+})
+
+

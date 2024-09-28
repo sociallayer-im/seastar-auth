@@ -34,7 +34,7 @@ export default function WalletOptionItem({
         <div
             className={`${!ready ? 'opacity-30 pointer-events-none ' : 'cursor-pointer '}w-full shadow btn btn-md bg-[var(--background)] mb-3 justify-start`}
             onClick={onClick}>
-            <Image src={icon} className="w-6 h-6 mr-2 rounded" width={24} height={24} alt={connector.name}/>
+            <img src={icon} className="w-6 h-6 mr-2 rounded" width={24} height={24} alt={connector.name}/>
             {connector.name}
         </div>
     )

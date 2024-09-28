@@ -1,22 +1,23 @@
 import Image from 'next/image'
-import useSolana from '@/hooks/useSolana'
-import {Provider} from '@/components/client/SignInOptions/SolanaSignIn/SolanaProvider'
+import useModal from '@/components/client/Modal/useModal'
+import ModalConnect from '@/components/client/SignInOptions/SolanaSignIn/ModalConnect'
 
-function SolanaOptionBtn() {
-    const {buttonState, handleOpenModal} = useSolana()
+export default  function SolanaOptionBtn() {
+    const {openModal} = useModal()
+
+    const showModal = () => {
+        openModal({
+            content: () => <ModalConnect />
+        })
+    }
+
     return <>
         <div
-            onClick={handleOpenModal}
+            onClick={showModal}
             className={`cursor-pointer w-full shadow btn btn-md bg-[var(--background)] mb-3 justify-start`}
         >
             <Image alt="Zupass" src={'/images/solana.png'} width={24} height={24} className="w-6 h-6 mr-2 rounded"/>
-            Solana {buttonState}
+            Solana
         </div>
     </>
-}
-
-export default function SolanaOptionItem () {
-    return <Provider>
-        <SolanaOptionBtn />
-    </Provider>
 }
