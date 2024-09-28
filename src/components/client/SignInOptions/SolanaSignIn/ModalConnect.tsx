@@ -79,7 +79,7 @@ function ModalConnect() {
     return <div className="w-[360px] bg-[var(--background)] shadow p-4 rounded-lg">
         <div className="mb-3 font-semibold">Select Wallet</div>
         {wallets.map((_wallet, index) => {
-            return <button className={`btn w-full justify-start my-1 ${wallet?.adapter.name === _wallet.adapter.name ? 'border-primary border-[2px]' : ''}`}
+            return <button data-testid="solana-sigin-in-wallet" className={`btn w-full justify-start my-1 ${wallet?.adapter.name === _wallet.adapter.name ? 'border-primary border-[2px]' : ''}`}
                 onClick={() => {
                     select(_wallet.adapter.name)
                 }}
@@ -90,7 +90,7 @@ function ModalConnect() {
         })}
 
         {!!wallets.length &&
-            <button className={`${!!wallet || connecting ? '' : 'btn-disabled '}btn w-full mt-3`}
+            <button data-testid="solana-sigin-in-btn"  className={`${!!wallet || connecting ? '' : 'btn-disabled '}btn w-full mt-3`}
                 onClick={async () => {
                     await connect()
                 }}>

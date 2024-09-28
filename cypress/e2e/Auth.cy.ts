@@ -171,8 +171,12 @@ describe('Solana Sign-in', () => {
         cy.visit('/?return=http://localhost:3000/test')
         cy.contains('Solana').click()
 
-        cy.contains('OKX Wallet').click()
-        cy.wait(10000)
+        // connect wallet
+        cy.wait(1000)
+        cy.get('button[data-testid=solana-sigin-in-wallet]').click()
+        cy.get('button[data-testid=solana-sigin-in-btn]').click()
+        cy.wait(5000)
+
         // check return
         cy.url().should('eq', 'http://localhost:3000/test')
     })
