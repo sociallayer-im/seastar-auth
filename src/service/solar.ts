@@ -196,3 +196,24 @@ export const signinWithSolana = async (props: {sol_address: string, next_token: 
 
     return data.auth_token as string
 }
+
+export const signinWithFarcaster = async (props: {next_token: string, far_fid: number, far_address: string, host: string}) => {
+    const response = await fetch(`${api}/profile/signin_with_farcaster`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(props)
+    })
+
+    if (!response.ok) {
+        throw new Error('Fail to sign in with farcaster: ' + response.statusText)
+    }
+
+    const data = await response.json()
+    if (data.result !== 'ok') {
+        throw new Error(data.message)
+    }
+
+    return data.auth_token as string
+}

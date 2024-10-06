@@ -7,11 +7,17 @@ const DynamicSolanaOptionItem = dynamic(
     {ssr: false}
 )
 
+const DynamicFarcasterOptionItem = dynamic(
+    () => import('@/components/client/SignInOptions/FarcasterOptionItem'),
+    {ssr: false}
+)
+
 export default function Options() {
 
     return <div className="flex flex-col">
         <ZupassOptionItem />
         <WalletOptions />
         <DynamicSolanaOptionItem />
+        <DynamicFarcasterOptionItem />
     </div>
 }

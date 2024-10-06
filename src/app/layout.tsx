@@ -1,5 +1,6 @@
 import type {Metadata} from "next"
 import "@/styles/globals.css"
+import '@farcaster/auth-kit/styles.css'
 import Head from 'next/head'
 import {ReactNode} from "react"
 import LangSwitcher from '@/components/client/LangSwitcher'

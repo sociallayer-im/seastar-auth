@@ -33,7 +33,7 @@ describe.skip('Email Sign-in', () => {
         })
 
 
-        cy.visit('/?return=http://localhost:3000/test')
+        cy.visit('/?return=http://localhost:3000/status')
 
         // input email
         cy.get('input[name="email"]').type('475469442@qq.com')
@@ -43,7 +43,7 @@ describe.skip('Email Sign-in', () => {
         cy.get('input[data-testid="pin-code-input"]').type('123456')
 
         // check return
-        cy.url().should('eq', 'http://localhost:3000/test')
+        cy.url().should('eq', 'http://localhost:3000/status')
     })
 
     it.skip('New email user', () => {
@@ -68,7 +68,7 @@ describe.skip('Email Sign-in', () => {
             body: { result: "ok", message:'mock' },
         })
 
-        cy.visit('/?return=http://localhost:3000/test')
+        cy.visit('/?return=http://localhost:3000/status')
 
         // input email
         cy.get('input[name="email"]').type('475469442@qq.com')
@@ -100,7 +100,7 @@ describe.skip('Email Sign-in', () => {
 
     it.skip('Bind email', () => {
         cy.setCookie(auth_field, true_auth)
-        cy.setCookie('return', 'http://localhost:3000/test')
+        cy.setCookie('return', 'http://localhost:3000/status')
 
 
         cy.intercept('get', `${api}/profile/get_by_email?email=475469442@qq.com`, {
@@ -134,7 +134,7 @@ describe.skip('Email Sign-in', () => {
         cy.get('input[data-testid=pin-code-input]').type('12345')
 
         // check return
-        cy.url().should('eq', 'http://localhost:3000/test')
+        cy.url().should('eq', 'http://localhost:3000/status')
     })
 })
 
@@ -148,27 +148,27 @@ describe.skip('Middleware', () => {
 
 describe.skip('Wallet Sign-in', () => {
     it('MetaMask Sign-in', () => {
-        cy.visit('/?return=http://localhost:3000/test')
+        cy.visit('/?return=http://localhost:3000/status')
         cy.contains('MetaMask').click()
         cy.wait(10000)
         // check return
-        cy.url().should('eq', 'http://localhost:3000/test')
+        cy.url().should('eq', 'http://localhost:3000/status')
     })
 })
 
 describe.skip('Zupass Sign-in', () => {
     it('Zupass Sign-in', () => {
-        cy.visit('/?return=http://localhost:3000/test')
+        cy.visit('/?return=http://localhost:3000/status')
         cy.contains('Zupass').click()
         cy.wait(10000)
         // check return
-        cy.url().should('eq', 'http://localhost:3000/test')
+        cy.url().should('eq', 'http://localhost:3000/status')
     })
 })
 
 describe('Solana Sign-in', () => {
     it('Solana Sign-in', () => {
-        cy.visit('/?return=http://localhost:3000/test')
+        cy.visit('/?return=http://localhost:3000/status')
         cy.contains('Solana').click()
 
         // connect wallet
@@ -178,7 +178,7 @@ describe('Solana Sign-in', () => {
         cy.wait(5000)
 
         // check return
-        cy.url().should('eq', 'http://localhost:3000/test')
+        cy.url().should('eq', 'http://localhost:3000/status')
     })
 })
 
