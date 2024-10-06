@@ -9,7 +9,7 @@ export async function POST(req: Request) {
 
     try {
         const appClient = createAppClient({
-            ethereum: viemConnector(),
+            ethereum: viemConnector({rpcUrl: "https://optimism-mainnet.infura.io/v3/df69a66a46e94a1bb0e0f2914af8b403"}),
         })
 
         const nonce = message.match(/Nonce: (\w+)/)[1]
@@ -38,6 +38,7 @@ export async function POST(req: Request) {
             })
         }
 
+        console.log('[Verified farcaster account]:', fid)
         if (success) {
             const authToken = await signinWithFarcaster({
                 far_fid: fid,
@@ -57,7 +58,7 @@ export async function POST(req: Request) {
             })
         }
     } catch (e: unknown) {
-        console.error(`[ERROR] ${e}`)
+        console.error(e)
         return NextResponse.json({
             result: 'failed',
             message: 'Verification failed'

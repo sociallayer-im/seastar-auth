@@ -203,7 +203,10 @@ export const signinWithFarcaster = async (props: {next_token: string, far_fid: n
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(props)
+        body: JSON.stringify({
+            ...props,
+            address_source: 'farcaster'
+        })
     })
 
     if (!response.ok) {
