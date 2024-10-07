@@ -2,7 +2,8 @@ import {useEffect, useRef} from 'react'
 import {useToast} from '@/components/client/shadcn/Toast/use-toast'
 import {clientCheckUserLoggedInAndRedirect, setAuth} from '@/utils'
 import useModal from '@/components/client/Modal/useModal'
-import { MiniKit, ResponseEvent } from '@worldcoin/minikit-js'
+import { MiniKit, ResponseEvent } from '@/libs/minikit'
+import {getNonce} from '@/service/solar'
 
 function WorldIdOptionItem() {
     const {showLoading, closeModal} = useModal()
@@ -22,8 +23,7 @@ function WorldIdOptionItem() {
 
             const modalId = showLoading()
             try {
-                const nonceRes = await fetch('/api/nonce')
-                const {nonce} = await nonceRes.json()
+                const nonce = await getNonce()
                 nonceRef.current = nonce
                 const domain = window.location.host
                 MiniKit.commands.walletAuth({
@@ -51,7 +51,7 @@ function WorldIdOptionItem() {
             return
         }
 
-        MiniKit.subscribe(ResponseEvent.MiniAppWalletAuth, async (payload) => {
+        MiniKit.subscribe(ResponseEvent.MiniAppWalletAuth, async (payload: { status: string }) => {
             if (payload.status === "error") {
                 toast({
                     title: 'Error',
