@@ -1,5 +1,4 @@
 import WalletOptions from '@/components/client/SignInOptions/WalletOptions'
-import ZupassOptionItem from '@/components/client/SignInOptions/ZupassOptionItem'
 import dynamic from 'next/dynamic'
 
 const DynamicSolanaOptionItem = dynamic(
@@ -12,12 +11,22 @@ const DynamicFarcasterOptionItem = dynamic(
     {ssr: false}
 )
 
-export default function Options() {
+const DynamicZupassOptionItem = dynamic(
+    () => import('@/components/client/SignInOptions/ZupassOptionItem'),
+    {ssr: false}
+)
 
+const DynamicWorldIdOptionItem = dynamic(
+    () => import('@/components/client/SignInOptions/WorldIdOptionItem'),
+    {ssr: false}
+)
+
+export default function Options() {
     return <div className="flex flex-col">
-        <ZupassOptionItem />
+        <DynamicZupassOptionItem />
         <WalletOptions />
         <DynamicSolanaOptionItem />
         <DynamicFarcasterOptionItem />
+        <DynamicWorldIdOptionItem />
     </div>
 }

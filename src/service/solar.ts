@@ -220,3 +220,27 @@ export const signinWithFarcaster = async (props: {next_token: string, far_fid: n
 
     return data.auth_token as string
 }
+
+export const signinWithWorldId = async (props: {next_token: string, address: string}) => {
+    const response = await fetch(`${api}/profile/signin_with_world_id`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            ...props,
+            address_source: 'world_id'
+        })
+    })
+
+    if (!response.ok) {
+        throw new Error('Fail to sign in with world id: ' + response.statusText)
+    }
+
+    const data = await response.json()
+    if (data.result !== 'ok') {
+        throw new Error(data.message)
+    }
+
+    return data.auth_token as string
+}
