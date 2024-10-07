@@ -38,7 +38,6 @@ export async function POST(req: Request) {
             })
         }
 
-        console.log('[Verified farcaster account]:', fid)
         if (success) {
             const authToken = await signinWithFarcaster({
                 far_fid: fid,
