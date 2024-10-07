@@ -59,7 +59,9 @@ function FarcasterOptionItem() {
         })()
     }, [isAuthenticated])
 
-    return <div className="cursor-pointer w-full shadow btn btn-md bg-[var(--background)] mb-3 justify-start"
+    return <div
+        data-testid="farcaster-option-item"
+        className="cursor-pointer w-full shadow btn btn-md bg-[var(--background)] mb-3 justify-start"
         onClick={handleSignin}>
 
         <div className="hidden">
@@ -74,7 +76,7 @@ function FarcasterOptionItem() {
 const Wrapper = () => {
 
     const farcasterConfig = {
-        rpcUrl: 'https://mainnet.optimism.io',
+        rpcUrl: 'https://optimism-mainnet.infura.io/v3/df69a66a46e94a1bb0e0f2914af8b403',
         domain: 'www.sola.day',
         siweUri: 'https://www.sola.day',
     }

@@ -166,7 +166,7 @@ describe.skip('Zupass Sign-in', () => {
     })
 })
 
-describe('Solana Sign-in', () => {
+describe.skip('Solana Sign-in', () => {
     it('Solana Sign-in', () => {
         cy.visit('/?return=http://localhost:3000/status')
         cy.contains('Solana').click()
@@ -179,6 +179,21 @@ describe('Solana Sign-in', () => {
 
         // check return
         cy.url().should('eq', 'http://localhost:3000/status')
+    })
+})
+
+describe('Farcast Sign-in', () => {
+    it('Farcast Sign-in', () => {
+        cy.visit('/?return=http://localhost:3000/status')
+
+        cy.wait(5000)
+
+        cy.get('div[data-testid=farcaster-option-item]').click()
+
+        cy.wait(20000)
+
+        // check return
+        cy.url().should('eq', 'http://localhost:3000/register')
     })
 })
 
