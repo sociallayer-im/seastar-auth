@@ -5,8 +5,9 @@ import useSiwe from '@/hooks/useSiwe'
 import {useToast} from '@/components/client/shadcn/Toast/use-toast'
 import useModals from '@/components/client/Modal/useModal'
 import {clientCheckUserLoggedInAndRedirect, setAuth} from '@/utils'
+import WagmiWrapper from './WagmiWrapper'
 
-export default function WalletOptions() {
+function OptionsItems() {
     const {connectors} = useConnect()
     const {siwe} = useSiwe()
     const {toast} = useToast()
@@ -32,6 +33,7 @@ export default function WalletOptions() {
             setAuth(res.auth_token)
             clientCheckUserLoggedInAndRedirect(res.auth_token)
         } catch (error: unknown) {
+            closeModal(modalId)
             const message = error instanceof Error
                 ? error.message
                 : 'Unknown siwe error'
@@ -43,8 +45,6 @@ export default function WalletOptions() {
                     variant: 'destructive'
                 })
             }
-        } finally {
-            closeModal(modalId)
         }
     }
 
@@ -57,5 +57,11 @@ export default function WalletOptions() {
             })
         }
     </>
+}
+
+export default function WalletOptions() {
+    return <WagmiWrapper>
+        <OptionsItems />
+    </WagmiWrapper>
 }
 
