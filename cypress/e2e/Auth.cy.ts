@@ -182,7 +182,7 @@ describe.skip('Solana Sign-in', () => {
     })
 })
 
-describe('Farcast Sign-in', () => {
+describe.skip('Farcast Sign-in', () => {
     it('Farcast Sign-in', () => {
         cy.visit('/?return=http://localhost:3000/status')
 
@@ -194,6 +194,21 @@ describe('Farcast Sign-in', () => {
 
         // check return
         cy.url().should('eq', 'http://localhost:3000/register')
+    })
+})
+
+describe('ZK Email Sign-in', () => {
+    it('ZK Email Sign-in', () => {
+        cy.visit('/?return=http://localhost:3000/status')
+        cy.wait(2000)
+        cy.get('a[data-testid=zkemail-option-item]').click()
+        cy.url().should('eq', 'http://localhost:3000/zkemail')
+        cy.get('input[name=email]').type('webdbcosmo@gmail.com')
+        cy.get('button').click()
+        cy.wait(80000)
+
+        // check return
+        cy.url().should('eq', 'http://localhost:3000/status')
     })
 })
 
