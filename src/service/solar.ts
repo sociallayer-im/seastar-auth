@@ -244,3 +244,27 @@ export const signinWithWorldId = async (props: {next_token: string, address: str
 
     return data.auth_token as string
 }
+
+export const signinWithZkEmail = async (props: {email: string, next_token: string}) => {
+    const response = await fetch(`${api}/profile/signin_with_zkemail`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            ...props,
+            address_source: 'zkemail'
+        })
+    })
+
+    if (!response.ok) {
+        throw new Error('Fail to sign in with zkemail: ' + response.statusText)
+    }
+
+    const data = await response.json()
+    if (data.result !== 'ok') {
+        throw new Error(data.message)
+    }
+
+    return data.auth_token as string
+}

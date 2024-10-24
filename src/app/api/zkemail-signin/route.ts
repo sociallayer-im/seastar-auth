@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import {Address, verifyMessage} from 'viem'
+import {signinWithZkEmail} from '@/service/solar'
 
 export async function POST(req: Request) {
     try {
@@ -16,9 +17,11 @@ export async function POST(req: Request) {
             throw new Error('Message signature invalid')
         }
 
+        const auth_token = await signinWithZkEmail({email, next_token: process.env.NEXT_TOKEN || ''})
+
         return NextResponse.json({
             result: 'ok',
-            auth_token: ''
+            auth_token: auth_token
         })
     } catch (e: unknown) {
         console.error(`[ERROR] ${e}`)

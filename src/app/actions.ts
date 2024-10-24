@@ -31,7 +31,7 @@ export const redirectToReturn = async () => {
     if (returnTo) {
         redirect(returnTo)
     } else {
-        redirect(process.env.NEXT_PUBLIC_DEFAULT_RETURN!)
+        redirect(process.env.NEXT_PUBLIC_APP_URL!)
     }
 }
 
