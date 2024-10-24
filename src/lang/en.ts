@@ -18,6 +18,8 @@ export const en = {
     'Your email': 'Your email',
     'Continue': 'Continue',
     'Skip': 'Skip',
+    'Next': 'Next',
+    'Perform OAuth sign-in operations via an email, you will be asked for One-on-one email reply to sign in.': 'Perform OAuth sign-in operations via an email, you will be asked for One-on-one email reply to sign in.'
 }
 
 export type Dictionary = typeof en

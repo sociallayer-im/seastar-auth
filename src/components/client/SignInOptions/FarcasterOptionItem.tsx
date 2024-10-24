@@ -61,7 +61,7 @@ function FarcasterOptionItem() {
 
     return <div
         data-testid="farcaster-option-item"
-        className="cursor-pointer w-full shadow btn btn-md bg-[var(--background)] mb-3 justify-start"
+        className="cursor-pointer w-full shadow btn btn-md bg-[var(--background)] mb-3 sm:mb-0 justify-start"
         onClick={handleSignin}>
 
         <div className="hidden">

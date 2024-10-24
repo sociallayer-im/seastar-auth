@@ -29,12 +29,14 @@ export default function WalletOptionItem({
         }
     }, [connector])
 
+    const name = connector.name === 'Injected' ? 'Browser Wallet' : connector.name
+
     return (
         <div
-            className={`${!ready ? 'opacity-30 pointer-events-none ' : 'cursor-pointer '}w-full shadow btn btn-md bg-[var(--background)] mb-3 justify-start`}
+            className={`${!ready ? 'opacity-30 pointer-events-none ' : 'cursor-pointer '}w-full shadow btn btn-md bg-[var(--background)] mb-3 sm:mb-0 justify-start`}
             onClick={onClick}>
-            <img src={icon} className="w-6 h-6 mr-2 rounded" width={24} height={24} alt={connector.name}/>
-            {connector.name}
+            <img src={icon} className="w-6 h-6 mr-2 rounded" width={24} height={24} alt={name}/>
+            {name}
         </div>
     )
 }

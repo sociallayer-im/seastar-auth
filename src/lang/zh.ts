@@ -20,5 +20,7 @@ export const zh: Dictionary = {
     'Your email': '您的邮箱',
     'Continue': '继续',
     'Skip': '跳过',
+    'Next': '下一步',
+    'Perform OAuth sign-in operations via an email, you will be asked for One-on-one email reply to sign in.': '通过电子邮件执行 OAuth 登录操作，您将被要求一对一的电子邮件回复登录。'
 
 }

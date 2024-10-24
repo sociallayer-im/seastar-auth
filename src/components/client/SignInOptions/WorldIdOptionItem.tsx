@@ -99,7 +99,7 @@ function WorldIdOptionItem() {
 
     return <div
         data-testid="worldid-option-item"
-        className={`${MiniKit.isInstalled() ?'cursor-pointer ': 'opacity-30 pointer-events-none '}w-full shadow btn btn-md bg-[var(--background)] mb-3 justify-start`}
+        className={`${MiniKit.isInstalled() ?'cursor-pointer ': 'opacity-30 pointer-events-none '}w-full shadow btn btn-md bg-[var(--background)] mb-3 sm:mb-0 justify-start`}
         onClick={handleSignin}>
         <img src="https://ik.imagekit.io/soladata/th7yl4e7_DnPjjT8n1" className="w-6 h-6 mr-2 rounded" width={24} height={24} alt="farcaster"/>
         World ID
