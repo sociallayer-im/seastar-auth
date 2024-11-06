@@ -7,9 +7,9 @@ import {createProfile, getProfileByHandle} from '@/service/solar'
 import {clientRedirectToReturn, getAuth} from '@/utils'
 import {useToast} from '@/components/client/shadcn/Toast/use-toast'
 
-export default function RegisterForm(props: { lang: Dictionary }) {
+export default function RegisterForm(props: { lang: Dictionary, prefill?: string }) {
     const [error, setError] = useState('')
-    const [username, setUsername] = useState('')
+    const [username, setUsername] = useState(props.prefill || '')
     const {showLoading, closeModal} = useModal()
     const {toast} = useToast()
 

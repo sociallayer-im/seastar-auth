@@ -1,13 +1,16 @@
 import {selectLang, getCurrProfile, redirectToReturn} from '@/app/actions'
 import RegisterForm from '@/app/register/RegisterForm'
+import {pickSearchParam} from '@/utils'
 
-export default async function Register() {
+export default async function Register(props: {searchParams : {username: string | string[]}}) {
     const lang = (await selectLang()).lang
     const currProfile = await getCurrProfile()
 
     if (currProfile?.handle) {
         redirectToReturn()
     }
+
+    const username = props.searchParams.username ? pickSearchParam(props.searchParams.username) : ''
 
     return <div className="w-full min-h-[calc(100svh-48px)] flex flex-row justify-center items-center relative z-10">
         <div className="max-w-[500px] mx-auto p-4">
@@ -20,7 +23,7 @@ export default async function Register() {
                 </ul>
             </div>
             <div className="my-4">
-                <RegisterForm lang={lang} />
+                <RegisterForm lang={lang} prefill={username} />
             </div>
         </div>
     </div>

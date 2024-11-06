@@ -199,11 +199,13 @@ describe.skip('Farcast Sign-in', () => {
 
 describe('ZK Email Sign-in', () => {
     it('ZK Email Sign-in', () => {
+        cy.setCookie('lang', 'en')
         cy.visit('/?return=http://localhost:3000/status')
         cy.wait(2000)
         cy.get('a[data-testid=zkemail-option-item]').click()
         cy.url().should('eq', 'http://localhost:3000/zkemail')
         cy.get('input[name=email]').type('webdbcosmo@gmail.com')
+        cy.get('input[name=username]').type('zou')
         cy.get('button').click()
         cy.wait(80000)
 
