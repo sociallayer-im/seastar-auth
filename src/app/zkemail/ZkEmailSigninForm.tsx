@@ -7,9 +7,12 @@ import {Address, createPublicClient, http} from 'viem'
 import {baseSepolia} from 'viem/chains'
 import {useToast} from '@/components/client/shadcn/Toast/use-toast'
 import {clientCheckUserLoggedInAndRedirect, setAuth} from '@/utils'
+import {getProfileByEmail} from '@/service/solar'
+import useModal from '@/components/client/Modal/useModal'
 
 export default function ZkEmailSigninForm(props: { lang: Dictionary }) {
     const {toast} = useToast()
+    const {showLoading, closeModal} = useModal()
 
     const [email, setEmail] = useState('')
     const [username, setUsername] = useState('')
@@ -17,6 +20,7 @@ export default function ZkEmailSigninForm(props: { lang: Dictionary }) {
     const [loginError, setLoginError] = useState('')
     const [userNameError, setUserNameError] = useState('')
     const [waiting, setWaiting] = useState(false)
+    const [step, setStep] = useState(0)
 
     const handleCheckEmail = (email: string) => {
         if (!email) {
@@ -42,9 +46,7 @@ export default function ZkEmailSigninForm(props: { lang: Dictionary }) {
     }
 
 
-    const handleZkEmailSign = async () => {
-        if (emailError || userNameError) return
-
+    const handleZkEmailSign = async (email: string, username?: string) => {
         setWaiting(true)
 
         try {
@@ -53,20 +55,17 @@ export default function ZkEmailSigninForm(props: { lang: Dictionary }) {
                 transport: http("https://sepolia.base.org"), // Transport URL
             })
 
-            // Your core contract address. This prefilled default is already deployed on Base Sepolia
             const coreAddress: Address = '0x3C0bE6409F828c8e5810923381506e1A1e796c2F'
-            // Your OAuth core contract address, deployed on Base Sepolia
             const oauthAddress: Address = '0x8bFcBe6662e0410489d210416E35E9d6B62AF659'
-            // Your relayer host; this one is public and deployed on Base Sepolia
             const relayerHost: string = "https://oauth-api.emailwallet.org"
             const oauthClient = new OauthClient(publicClient, coreAddress, oauthAddress, relayerHost)
-            const requestId = await oauthClient.setup(email.trim(), username.trim(), null, null)
+            const requestId = await oauthClient.setup(email.trim(), username ? username.trim() : null, null, null)
             const isActivated = await oauthClient.waitEpheAddrActivated(requestId)
             if (!isActivated) {
                 setLoginError('Email not activated')
                 return
             }
-            // console.log('oauthClient', oauthClient)
+
             const epheSignature = await oauthClient.epheClient.signMessage({message: 'zkemail sign in'})
             const verifyRequest = await fetch('/api/zkemail-signin', {
                 method: 'POST',
@@ -89,7 +88,7 @@ export default function ZkEmailSigninForm(props: { lang: Dictionary }) {
                 throw new Error(data.message)
             }
             setAuth(data.auth_token)
-            clientCheckUserLoggedInAndRedirect(data.auth_token, username.trim())
+            clientCheckUserLoggedInAndRedirect(data.auth_token, username?.trim())
         } catch (e: unknown) {
             console.error(e)
             setWaiting(false)
@@ -101,47 +100,95 @@ export default function ZkEmailSigninForm(props: { lang: Dictionary }) {
         }
     }
 
+    const handleCheckAccountAndSignIn = async () => {
+        const modalId = showLoading()
+
+        try {
+            const solarProfile = await getProfileByEmail(email)
+
+            const res = await fetch(`https://relayerapi.emailwallet.org/api/isAccountCreated`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({email_addr: email}),
+            })
+
+            if (!res.ok) {
+                setLoginError('Failed to create account')
+                throw new Error('Failed to create account: ' + res.statusText)
+            }
+
+            closeModal(modalId)
+            const zkEmailWalletIsCreate = await res.json()
+            if (zkEmailWalletIsCreate === 'true') {
+                await handleZkEmailSign(email)
+            } else {
+                if (!!solarProfile && !!solarProfile.handle) {
+                    setTimeout(async () => {await handleZkEmailSign(email, solarProfile.handle!)})
+                } else {
+                    setStep(1)
+                }
+            }
+        } catch (e: unknown) {
+            console.error(e)
+            closeModal(modalId)
+            setWaiting(false)
+            setLoginError(e instanceof Error ? e.message : 'An error occurred')
+        }
+    }
+
     return !waiting ?
         <>
-            <label
-                className={`${emailError ? 'input-error ' : ''}input flex flew-row w-full bg-gray-100 focus-within:outline-none focus-within:border-primary mb-4`}>
-                <input
-                    data-testid="username-input"
-                    type={'email'}
-                    className="flex-1"
-                    name="email"
-                    autoFocus={true}
-                    maxLength={100}
-                    value={email}
-                    placeholder={props.lang['Your email']}
-                    onBlur={() => {
-                        handleCheckEmail(email.trim())
-                    }}
-                    onChange={(e) => {
-                        setEmail(e.target.value)
-                    }}/>
-            </label>
-            <label
-                className={`${userNameError ? 'input-error ' : ''}input flex flew-row w-full bg-gray-100 focus-within:outline-none focus-within:border-primary`}>
-                <input
-                    data-testid="username-input"
-                    type={'text'}
-                    className="flex-1"
-                    name="username"
-                    maxLength={100}
-                    value={username}
-                    placeholder={props.lang['Your ZK email wallet username']}
-                    onBlur={() => {
-                        handleCheckUsername(username.trim())
-                    }}
-                    onChange={(e) => {
-                        setUsername(e.target.value)
-                    }}/>
-            </label>
+            {step === 0 &&
+                <>
+                    <label
+                        className={`${emailError ? 'input-error ' : ''}input flex flew-row w-full bg-gray-100 focus-within:outline-none focus-within:border-primary mb-4`}>
+                        <input
+                            data-testid="email-input"
+                            type={'email'}
+                            className="flex-1"
+                            name="email"
+                            autoFocus={true}
+                            maxLength={100}
+                            value={email}
+                            placeholder={props.lang['Your email']}
+                            onBlur={() => {
+                                handleCheckEmail(email.trim())
+                            }}
+                            onChange={(e) => {
+                                setEmail(e.target.value)
+                            }}/>
+                    </label>
+                    <button className="btn btn-primary w-full my-4"
+                        onClick={() => {!emailError && handleCheckAccountAndSignIn()}}
+                    >{props.lang['Next']}</button>
+                </>
+            }
+            {step === 1 && <>
+                <label
+                    className={`${userNameError ? 'input-error ' : ''}input flex flew-row w-full bg-gray-100 focus-within:outline-none focus-within:border-primary`}>
+                    <input
+                        data-testid="username-input"
+                        type={'text'}
+                        className="flex-1"
+                        name="username"
+                        maxLength={100}
+                        value={username}
+                        placeholder={props.lang['Your ZK email wallet username']}
+                        onBlur={() => {
+                            !userNameError && !emailError && handleCheckUsername(username.trim())
+                        }}
+                        onChange={(e) => {
+                            setUsername(e.target.value)
+                        }}/>
+                </label>
+                <button className="btn btn-primary w-full my-4"
+                    onClick={() => {handleZkEmailSign(email, username)}}
+                >{props.lang['Next']}</button>
+            </>
+            }
 
-            <button className="btn btn-primary w-full my-4"
-                onClick={handleZkEmailSign}
-            >{props.lang['Next']}</button>
             <div className="text-red-400 text-sm h-10">{loginError || userNameError || emailError}</div>
         </>
         :

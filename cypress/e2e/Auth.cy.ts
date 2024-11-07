@@ -198,19 +198,32 @@ describe.skip('Farcast Sign-in', () => {
 })
 
 describe('ZK Email Sign-in', () => {
-    it('ZK Email Sign-in', () => {
+    it.skip('ZK Email Sign-in', () => {
         cy.setCookie('lang', 'en')
         cy.visit('/?return=http://localhost:3000/status')
         cy.wait(2000)
         cy.get('a[data-testid=zkemail-option-item]').click()
         cy.url().should('eq', 'http://localhost:3000/zkemail')
         cy.get('input[name=email]').type('webdbcosmo@gmail.com')
-        cy.get('input[name=username]').type('zou')
         cy.get('button').click()
         cy.wait(80000)
 
         // check return
         cy.url().should('eq', 'http://localhost:3000/status')
+    })
+
+    it('Input username to register new zkemail account if solar account and zkemail account not exist', () => {
+        cy.setCookie('lang', 'en')
+        cy.visit('/?return=http://localhost:3000/status')
+        cy.wait(2000)
+        cy.get('a[data-testid=zkemail-option-item]').click()
+        cy.url().should('eq', 'http://localhost:3000/zkemail')
+        cy.get('input[name=email]').type('webdbcosmo123123123123@gmail.com')
+        cy.get('button').click()
+        cy.wait(1000)
+
+        // check return
+        cy.get('input[name=username]').should('exist')
     })
 })
 

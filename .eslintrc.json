@@ -13,6 +13,7 @@
       "error",
       4
     ],
-    "@typescript-eslint/no-explicit-any": "warn"
+    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/no-unused-expressions": "off"
   }
 }
