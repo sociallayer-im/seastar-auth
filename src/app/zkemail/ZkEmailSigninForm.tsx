@@ -13,23 +13,23 @@ export default function ZkEmailSigninForm(props: { lang: Dictionary }) {
 
     const [email, setEmail] = useState('')
     const [username, setUsername] = useState('')
-    const [emailError, setEemailError] = useState('')
-    const [loginError, setLoginErrlr] = useState('')
+    const [emailError, setEmailError] = useState('')
+    const [loginError, setLoginError] = useState('')
     const [userNameError, setUserNameError] = useState('')
     const [waiting, setWaiting] = useState(false)
 
     const handleCheckEmail = (email: string) => {
         if (!email) {
-            setEemailError('Please input email')
+            setEmailError('Please input email')
             return
         }
 
         if (!email.includes('@') || !email.includes('.')) {
-            setEemailError('Invalid email')
+            setEmailError('Invalid email')
             return
         }
 
-        setEemailError('')
+        setEmailError('')
     }
 
     const handleCheckUsername = (username: string) => {
@@ -63,7 +63,7 @@ export default function ZkEmailSigninForm(props: { lang: Dictionary }) {
             const requestId = await oauthClient.setup(email.trim(), username.trim(), null, null)
             const isActivated = await oauthClient.waitEpheAddrActivated(requestId)
             if (!isActivated) {
-                setLoginErrlr('Email not activated')
+                setLoginError('Email not activated')
                 return
             }
             // console.log('oauthClient', oauthClient)
