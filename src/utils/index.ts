@@ -1,16 +1,11 @@
 import Cookies from 'js-cookie'
-// import {getProfileByToken} from '@/service/solar'
+import {getProfileByToken} from '@/service/solar'
 
 export const AUTH_FIELD = process.env.NEXT_PUBLIC_AUTH_FIELD!
 export const COOKIE_DOMAIN = new URL(process.env.NEXT_PUBLIC_APP_URL!).hostname.split('.').slice(-2).join('.')
 
 export const setAuth = (token: string) => {
-    const d = new Date()
-    d.setTime(d.getTime()+(365*24*60*60*1000))
-    const cookie = `${AUTH_FIELD}=${token}; expires=${d.toUTCString()}; domain=${COOKIE_DOMAIN}`
-    alert(cookie)
-    window.document.cookie = cookie
-    // Cookies.set(AUTH_FIELD, token, {expires: 365, domain: COOKIE_DOMAIN})
+    Cookies.set(AUTH_FIELD, token, {expires: 365, domain: COOKIE_DOMAIN})
 }
 
 export const getAuth = () => {
@@ -27,20 +22,19 @@ export const clientRedirectToReturn = () => {
 }
 
 export const clientCheckUserLoggedInAndRedirect = async (auth_token: string, prefillUsername?: string) => {
-    console.log(auth_token, prefillUsername)
-    // const profile = await getProfileByToken(auth_token)
-    //
-    // if (profile && !profile.handle) {
-    //     let registerUrl = '/register'
-    //     if (prefillUsername) {
-    //         registerUrl = `/register?username=${prefillUsername}`
-    //     }
-    //
-    //     // window.location.href = registerUrl
-    // } else {
-    //     const cookiePath = Cookies.get('return')
-    //     window.location.href = cookiePath || process.env.NEXT_PUBLIC_APP_URL!
-    // }
+    const profile = await getProfileByToken(auth_token)
+
+    if (profile && !profile.handle) {
+        let registerUrl = '/register'
+        if (prefillUsername) {
+            registerUrl = `/register?username=${prefillUsername}`
+        }
+
+        window.location.href = registerUrl
+    } else {
+        const cookiePath = Cookies.get('return')
+        window.location.href = cookiePath || process.env.NEXT_PUBLIC_APP_URL!
+    }
 }
 
 
