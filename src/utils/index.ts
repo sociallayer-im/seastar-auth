@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie'
-import {getProfileByToken} from '@/service/solar'
+// import {getProfileByToken} from '@/service/solar'
 
 export const AUTH_FIELD = process.env.NEXT_PUBLIC_AUTH_FIELD!
 export const COOKIE_DOMAIN = new URL(process.env.NEXT_PUBLIC_APP_URL!).hostname.split('.').slice(-2).join('.')
