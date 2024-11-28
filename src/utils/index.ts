@@ -5,6 +5,7 @@ export const AUTH_FIELD = process.env.NEXT_PUBLIC_AUTH_FIELD!
 export const COOKIE_DOMAIN = new URL(process.env.NEXT_PUBLIC_APP_URL!).hostname.split('.').slice(-2).join('.')
 
 export const setAuth = (token: string) => {
+    alert(COOKIE_DOMAIN)
     Cookies.set(AUTH_FIELD, token, {expires: 365, domain: COOKIE_DOMAIN})
 }
 
