@@ -22,19 +22,20 @@ export const clientRedirectToReturn = () => {
 }
 
 export const clientCheckUserLoggedInAndRedirect = async (auth_token: string, prefillUsername?: string) => {
-    const profile = await getProfileByToken(auth_token)
-
-    if (profile && !profile.handle) {
-        let registerUrl = '/register'
-        if (prefillUsername) {
-            registerUrl = `/register?username=${prefillUsername}`
-        }
-
-        window.location.href = registerUrl
-    } else {
-        const cookiePath = Cookies.get('return')
-        window.location.href = cookiePath || process.env.NEXT_PUBLIC_APP_URL!
-    }
+    console.log(auth_token, prefillUsername)
+    // const profile = await getProfileByToken(auth_token)
+    //
+    // if (profile && !profile.handle) {
+    //     let registerUrl = '/register'
+    //     if (prefillUsername) {
+    //         registerUrl = `/register?username=${prefillUsername}`
+    //     }
+    //
+    //     // window.location.href = registerUrl
+    // } else {
+    //     const cookiePath = Cookies.get('return')
+    //     window.location.href = cookiePath || process.env.NEXT_PUBLIC_APP_URL!
+    // }
 }
 
 
