@@ -22,6 +22,11 @@ const DynamicWorldIdOptionItem = dynamic(
     {ssr: false}
 )
 
+const TelegramOptionItem = dynamic(
+    () => import('@/components/client/SignInOptions/TelegramOptionItem'),
+    {ssr: false}
+)
+
 export default function Options() {
     return <div className="flex flex-col sm:grid sm:grid-cols-2 sm:gap-2">
         <DynamicZupassOptionItem />
@@ -30,5 +35,6 @@ export default function Options() {
         <DynamicFarcasterOptionItem />
         <ZkEmailOptionItem />
         <DynamicWorldIdOptionItem />
+        <TelegramOptionItem />
     </div>
 }

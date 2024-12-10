@@ -71,4 +71,10 @@ body {
   pointer-events: none;
 }
 
+/* hidden telegram widget */
+iframe[id^="telegram-login"] {
+  width: 0px!important;
+  height: 0px!important;
+}
+
 

@@ -18,3 +18,5 @@ declare namespace Solar {
         permissions: string
     }
 }
+
+interface Window { Telegram?: any; }
