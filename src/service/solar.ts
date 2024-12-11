@@ -270,7 +270,7 @@ export const signinWithZkEmail = async (props: {email: string, next_token: strin
 }
 
 export const signinWithTelegram = async (props: {telegram_id: string, next_token: string}) => {
-    const response = await fetch(`${api}/profile/signin_with_zkemail`, {
+    const response = await fetch(`${api}/profile/signin_with_telegram`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
