@@ -284,7 +284,6 @@ export const signinWithTelegram = async (props: {telegram_id: string, next_token
     })
 
     if (!response.ok) {
-        console.error(response)
         throw new Error('Fail to sign in with telegram: ' + response.statusText)
     }
 
