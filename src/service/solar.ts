@@ -270,7 +270,9 @@ export const signinWithZkEmail = async (props: {email: string, next_token: strin
 }
 
 export const signinWithTelegram = async (props: {telegram_id: string, next_token: string}) => {
-    const response = await fetch(`${api}/profile/signin_with_telegram`, {
+    const url = `${api}/profile/signin_with_telegram`
+
+    const response = await fetch(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -282,7 +284,8 @@ export const signinWithTelegram = async (props: {telegram_id: string, next_token
     })
 
     if (!response.ok) {
-        throw new Error('Fail to sign in with zkemail: ' + response.statusText)
+        console.error(response)
+        throw new Error('Fail to sign in with telegram: ' + response.statusText)
     }
 
     const data = await response.json()

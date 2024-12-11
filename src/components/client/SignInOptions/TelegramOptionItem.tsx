@@ -57,6 +57,11 @@ export default function TelegramOptionItem() {
                     }
 
                     const res = await verifyRequest.json()
+
+                    if (res.result !== 'ok') {
+                        throw new Error(res.message)
+                    }
+
                     setAuth(res.auth_token)
                     clientCheckUserLoggedInAndRedirect(res.auth_token)
                 } catch (e:unknown) {
