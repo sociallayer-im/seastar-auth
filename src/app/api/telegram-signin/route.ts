@@ -1,5 +1,6 @@
 import {NextResponse} from 'next/server'
 import crypto from 'crypto'
+import {signinWithTelegram} from '@/service/solar'
 
 export async function POST(req: Request) {
     const {auth_date, first_name, hash, id, photo_url, username} = await req.json()
@@ -29,8 +30,20 @@ export async function POST(req: Request) {
         })
     }
 
-    return NextResponse.json({
-        result: 'ok',
-        auth_token: ''
-    })
+    try {
+        const authToken = await signinWithTelegram({
+            telegram_id: id,
+            next_token: process.env.NEXT_TOKEN || '',
+        })
+
+        return NextResponse.json({
+            result: 'ok',
+            auth_token: authToken
+        })
+    } catch (e: unknown) {
+        return NextResponse.json({
+            result: 'fail',
+            message: e instanceof Error ? e.message : 'An error occurred'
+        })
+    }
 }

@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react'
 import {useToast} from '@/components/client/shadcn/Toast/use-toast'
 import useModal from '@/components/client/Modal/useModal'
+import {clientCheckUserLoggedInAndRedirect, setAuth} from '@/utils'
 
 export default function TelegramOptionItem() {
     const [ready, setReady] = useState(false)
@@ -43,7 +44,7 @@ export default function TelegramOptionItem() {
                 }
                 const loading = showLoading()
                 try {
-                    const res = await fetch('/api/telegram-signin', {
+                    const verifyRequest = await fetch('/api/telegram-signin', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -51,12 +52,13 @@ export default function TelegramOptionItem() {
                         body: JSON.stringify(data),
                     })
 
-                    if (!res.ok) {
+                    if (!verifyRequest.ok) {
                         throw new Error('Failed to sign in')
                     }
 
-                    const result = await res.json()
-                    alert(result.result)
+                    const res = await verifyRequest.json()
+                    setAuth(res.auth_token)
+                    clientCheckUserLoggedInAndRedirect(res.auth_token)
                 } catch (e:unknown) {
                     toast({title: 'Error', description: e instanceof Error ? e.message : 'An error occurred', variant: 'destructive'})
                 } finally {
