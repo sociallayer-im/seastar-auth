@@ -23,5 +23,6 @@ export const zh: Dictionary = {
     'Next': '下一步',
     'Perform OAuth sign-in operations via an email, you will be asked for One-on-one email reply to sign in.': '通过电子邮件执行 OAuth 登录操作，您将被要求一对一的电子邮件回复登录。',
     'Your ZK email wallet username': '您的 ZK Email 钱包用户名',
+    'Should be equal or shorter than 16 characters':'应等于或短于 16 个字符',
 
 }
