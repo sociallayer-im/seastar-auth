@@ -13,6 +13,10 @@ export const getAuth = () => {
     return Cookies.get(AUTH_FIELD)
 }
 
+export const signOut = () => {
+    Cookies.remove(AUTH_FIELD, {domain: COOKIE_DOMAIN})
+}
+
 export const pickSearchParam = (param: string | string[] | undefined): string | undefined => {
     return Array.isArray(param) ? param[0] : param
 }

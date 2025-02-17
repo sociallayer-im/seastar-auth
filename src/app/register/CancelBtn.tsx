@@ -1,12 +1,12 @@
 'use client'
 
 import {Dictionary} from '@/lang'
-import Cookies from 'js-cookie'
+import {signOut} from '@/utils'
 
 export default function CancelBtn({lang}:{lang: Dictionary}) {
 
     const handleCancel = () => {
-        Cookies.remove(process.env.NEXT_PUBLIC_AUTH_FIELD!)
+        signOut()
         location.href = '/'
     }
 
