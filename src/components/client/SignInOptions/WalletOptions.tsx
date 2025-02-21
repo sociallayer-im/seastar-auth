@@ -3,7 +3,7 @@ import {useMemo} from 'react'
 import WalletOptionItem from '@/components/client/SignInOptions/WalletOptionItem'
 import useSiwe from '@/hooks/useSiwe'
 import {useToast} from '@/components/client/shadcn/Toast/use-toast'
-import useModals from '@/components/client/Modal/useModal'
+// import useModals from '@/components/client/Modal/useModal'
 import {clientCheckUserLoggedInAndRedirect, setAuth} from '@/utils'
 import WagmiWrapper from './WagmiWrapper'
 
@@ -11,7 +11,7 @@ function OptionsItems() {
     const {connectors} = useConnect()
     const {siwe} = useSiwe()
     const {toast} = useToast()
-    const {showLoading, closeModal} = useModals()
+    // const {showLoading, closeModal} = useModals()
 
     const sortedConnectors = useMemo(() => {
         const _connectors: Connector[] = []
