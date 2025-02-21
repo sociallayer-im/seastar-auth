@@ -26,14 +26,14 @@ function OptionsItems() {
     }, [connectors])
 
     const handleConnect = async (connector: Connector) => {
-        const modalId = showLoading()
+        // const modalId = showLoading()
 
         try {
             const res = await siwe(connector)
             setAuth(res.auth_token)
             clientCheckUserLoggedInAndRedirect(res.auth_token)
         } catch (error: unknown) {
-            closeModal(modalId)
+            // closeModal(modalId)
             const message = error instanceof Error
                 ? error.message
                 : 'Unknown siwe error'
