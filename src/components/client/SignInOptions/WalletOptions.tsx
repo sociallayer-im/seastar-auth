@@ -3,7 +3,7 @@ import {useMemo} from 'react'
 import WalletOptionItem from '@/components/client/SignInOptions/WalletOptionItem'
 import useSiwe from '@/hooks/useSiwe'
 import {useToast} from '@/components/client/shadcn/Toast/use-toast'
-// import useModals from '@/components/client/Modal/useModal'
+import useModals from '@/components/client/Modal/useModal'
 import {clientCheckUserLoggedInAndRedirect, setAuth} from '@/utils'
 import WagmiWrapper from './WagmiWrapper'
 
@@ -11,7 +11,7 @@ function OptionsItems() {
     const {connectors} = useConnect()
     const {siwe} = useSiwe()
     const {toast} = useToast()
-    // const {showLoading, closeModal} = useModals()
+    const {showLoading, closeModal} = useModals()
 
     const sortedConnectors = useMemo(() => {
         const _connectors: Connector[] = []
@@ -26,14 +26,16 @@ function OptionsItems() {
     }, [connectors])
 
     const handleConnect = async (connector: Connector) => {
-        // const modalId = showLoading()
+        const modalId = showLoading()
+        setTimeout(() => {
+            closeModal(modalId)
+        }, 30000)
 
         try {
             const res = await siwe(connector)
             setAuth(res.auth_token)
             clientCheckUserLoggedInAndRedirect(res.auth_token)
         } catch (error: unknown) {
-            // closeModal(modalId)
             const message = error instanceof Error
                 ? error.message
                 : 'Unknown siwe error'
@@ -45,6 +47,8 @@ function OptionsItems() {
                     variant: 'destructive'
                 })
             }
+        } finally {
+            closeModal(modalId)
         }
     }
 
