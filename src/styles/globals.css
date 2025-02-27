@@ -85,3 +85,21 @@ wcm-modal {
 }
 
 
+/* goole login button */
+.google-login-btn div[role="button"] {
+    border: 0;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, .1);
+    height: 48px;
+    padding: 0 1.3rem;
+    border-radius: 0.5rem;
+}
+
+.google-login-btn div[role="button"] span {
+    text-align: left;
+    font-weight: 600;
+}
+
+.google-login-btn div[role="button"] >div:nth-child(2) div  {
+    margin-right: 1rem;
+}
+
