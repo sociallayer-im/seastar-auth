@@ -3,7 +3,7 @@
 import {Dictionary} from '@/lang'
 import {useEffect, useState} from 'react'
 import useModal from '@/components/client/Modal/useModal'
-import {createProfile, getProfileByHandle} from '@/service/solar'
+import {createProfile, getProfileByHandle, getProfileByToken} from '@/service/solar'
 import {clientRedirectToReturn, getAuth} from '@/utils'
 import {useToast} from '@/components/client/shadcn/Toast/use-toast'
 
@@ -59,7 +59,7 @@ export default function RegisterForm(props: { lang: Dictionary, prefill?: string
             const authToken = getAuth()
             await createProfile({auth_token: authToken!, handle: usernameTrim})
 
-            const currProfile = await getProfileByHandle(usernameTrim)
+            const currProfile = await getProfileByToken(authToken)
 
             toast({
                 title: 'Register successfully',
