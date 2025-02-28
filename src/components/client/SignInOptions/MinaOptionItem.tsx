@@ -96,6 +96,6 @@ export default function MinaOptionItem() {
 async function sign(address: string) {
     const domain = window.location.host
     return await window.mina!.signMessage({
-        message: `${domain} wants you to sign in with Mina account: \n ${address}.`
+        message: `${domain} wants you to sign in with Mina account: ${address}.`
     })
 }

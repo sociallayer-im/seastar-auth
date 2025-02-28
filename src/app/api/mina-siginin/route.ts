@@ -21,7 +21,7 @@ export async function POST(req: Request) {
         })
 
         if (!verifyResult) {
-            console.error({data, publicKey, signature})
+            console.error({data, publicKey, signature, verifyResult})
             return NextResponse.json({
                 result: 'failed',
                 message: 'Verification failed'
