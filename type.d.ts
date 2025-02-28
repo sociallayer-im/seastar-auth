@@ -19,4 +19,4 @@ declare namespace Solar {
     }
 }
 
-interface Window { Telegram?: any; }
+interface Window { Telegram?: any; mina?:any }

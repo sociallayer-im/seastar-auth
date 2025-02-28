@@ -27,12 +27,18 @@ const DynamicZupassOptionItem = dynamic(
 //     {ssr: false}
 // )
 
+const MinaOptionItem = dynamic(
+    () => import('@/components/client/SignInOptions/MinaOptionItem'),
+    {ssr: false}
+)
+
 export default function Options() {
     return <div className="flex flex-col sm:grid sm:grid-cols-2 sm:gap-2">
         <WalletOptions />
         <DynamicZupassOptionItem />
         <DynamicSolanaOptionItem />
         <DynamicFarcasterOptionItem />
+        <MinaOptionItem />
         {/*<ZkEmailOptionItem />*/}
         {/*<DynamicWorldIdOptionItem />*/}
         {/*<TelegramOptionItem />*/}
