@@ -39,7 +39,7 @@ export default function MinaOptionItem() {
 
             const signed = await sign(address[0])
             console.log('signed', signed)
-            const res = await fetch('/api/mina-siginin',
+            const res = await fetch('/api/mina/authenticate',
                 {
                     method: 'POST',
                     headers: {
