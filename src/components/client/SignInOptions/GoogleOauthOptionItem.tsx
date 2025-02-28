@@ -1,6 +1,7 @@
 import {useGoogleLogin, GoogleOAuthProvider} from '@react-oauth/google'
 import {useToast} from '@/components/client/shadcn/Toast/use-toast'
 import useModal from '@/components/client/Modal/useModal'
+import {clientCheckUserLoggedInAndRedirect, setAuth} from '@/utils'
 
 export default function GoogleOauthOptionItem() {
 
@@ -18,14 +19,32 @@ function CustomBtn() {
         onSuccess: async (user) => {
             const loading = showLoading()
             try {
-                const res = await fetch(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
+                const res = await fetch(`/api/google-siginin`, {
+                    method: 'POST',
                     headers: {
-                        Authorization: `Bearer ${user.access_token}`,
-                        Accept: 'application/json'
-                    }
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        access_token: user.access_token
+                    }),
                 })
+
+                if (!res.ok) {
+                    throw new Error('Failed to sign in with google: ' + res.statusText)
+                }
                 const data = await res.json()
-                console.log('data', data)
+
+                if (data.result !== 'ok') {
+                    console.error(data.message)
+                    toast({
+                        title: data.message,
+                        variant: 'destructive'
+                    })
+                    return
+                }
+
+                setAuth(data.auth_token)
+                clientCheckUserLoggedInAndRedirect(data.auth_token)
             } catch (e: unknown) {
                 toast({
                     title: 'Error',

@@ -324,3 +324,33 @@ export async function minaLogin(props: {
 
     return data.auth_token as string
 }
+
+export async function googleLogin(props: {
+    email: string,
+    next_token: string,
+    host?: string
+}) {
+    const url = `${api}/profile/signin_with_google`
+
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            ...props,
+            address_source: 'google'
+        })
+    })
+
+    if (!response.ok) {
+        throw new Error('Fail to sign in with google: ' + response.statusText)
+    }
+
+    const data = await response.json()
+    if (data.result !== 'ok') {
+        throw new Error(data.message)
+    }
+
+    return data.auth_token as string
+}
