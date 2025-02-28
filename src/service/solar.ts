@@ -294,3 +294,33 @@ export const signinWithTelegram = async (props: {telegram_id: string, next_token
 
     return data.auth_token as string
 }
+
+export async function minaLogin(props: {
+    mina_address: string,
+    next_token: string,
+    host?: string
+}) {
+    const url = `${api}/profile/signin_with_mina`
+
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            ...props,
+            address_source: 'mina'
+        })
+    })
+
+    if (!response.ok) {
+        throw new Error('Fail to sign in with mina: ' + response.statusText)
+    }
+
+    const data = await response.json()
+    if (data.result !== 'ok') {
+        throw new Error(data.message)
+    }
+
+    return data.auth_token as string
+}

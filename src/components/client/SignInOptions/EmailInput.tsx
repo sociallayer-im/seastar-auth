@@ -43,7 +43,7 @@ export default function EmailInput(props: { lang: Dictionary }) {
         <label
             className={`${!!error ? 'input-error ' : ''}input shadow flex flew-row items-center w-full bg-gray-100 focus-within:outline-none focus-within:border-primary pr-0`}>
             <i className="uil-envelope mr-2 text-2xl"/>
-            <input className="flex-1" type="url" name="email"
+            <input className="flex-1 w-full" type="url" name="email"
                 placeholder={props.lang['Email']}
                 value={email}
                 onBlur={(e) => {
