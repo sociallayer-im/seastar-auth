@@ -27,9 +27,9 @@ export default async function RootLayout({
                 content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
         </Head>
         <body className={`antialiased`}>
-            <Script async src="https://telegram.org/js/telegram-widget.js?22"
-                data-telegram-login="develop_solar_auth_bot" data-size="hidden" data-userpic="false"
-                data-onauth="onTelegramAuth(user)" data-request-access="write" />
+            {/*<Script async src="https://telegram.org/js/telegram-widget.js?22"*/}
+            {/*    data-telegram-login="develop_solar_auth_bot" data-size="hidden" data-userpic="false"*/}
+            {/*    data-onauth="onTelegramAuth(user)" data-request-access="write" />*/}
             <div className="min-h-[100svh]">
                 <header className="w-full h-[48px] shadow sticky top-0 bg-[var(--background)] z-[999]">
                     <div className="page-width w-full flex-row-item-center justify-between items-center h-[48px]">
