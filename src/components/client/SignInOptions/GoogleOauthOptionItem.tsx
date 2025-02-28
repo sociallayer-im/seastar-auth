@@ -79,6 +79,6 @@ function CustomBtn() {
             <path fill="#ea4335" fillOpacity="1" fillRule="evenodd" stroke="none"
                 d="M9.003 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.464.891 11.428 0 9.002 0 5.485 0 2.44 2.017.96 4.958L3.967 7.29c.708-2.127 2.692-3.71 5.036-3.71"></path>
         </svg>
-        Sign in with Google
+        Google Auth
     </div>
 }
