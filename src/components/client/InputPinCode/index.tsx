@@ -1,10 +1,12 @@
-import {useRef, useState} from 'react'
+import {useRef, useState, useEffect} from 'react'
 
 const codeLength = 5
 
-export default function InputPinCode(props: { onChange?: (code: string) => void}) {
+export default function InputPinCode(props: { onChange?: (code: string) => void, onResend?: () => Promise<void> }) {
     const [code, setCode] = useState('')
     const inputRef = useRef<HTMLInputElement | null>(null)
+
+    const [seconds, setSeconds] = useState(40)
 
     const handleChange = (code: string) => {
         if (!isNaN(Number(code))) {
@@ -15,11 +17,25 @@ export default function InputPinCode(props: { onChange?: (code: string) => void}
         }
     }
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            seconds >= 1 && setSeconds(seconds => seconds - 1)
+        }, 1000)
+        return () => clearInterval(interval)
+    })
+
     const handleFocus = () => {
         if (inputRef.current) {
             const length = inputRef.current.value.length
             inputRef.current.setSelectionRange(length, length)
         }
+    }
+
+    const handleResend = async () => {
+        if (props.onResend) {
+            await props.onResend()
+        }
+        setSeconds(40)
     }
 
     return <>
@@ -50,5 +66,13 @@ export default function InputPinCode(props: { onChange?: (code: string) => void}
                 onFocus={handleFocus}
                 onChange={e => handleChange(e.target.value.trim())}/>
         </div>
+        {!!props.onResend &&
+            <div onClick={handleResend}
+                className={`text-xs mt-4 text-gray-500 text-right ${seconds !== 0 ? 'pointer-events-none': 'text-blue-500 cursor-pointer'}`}>
+                Resend Code {seconds !== 0 &&
+                <span className="w-8 inline-flex">({seconds}s)</span>
+                }
+            </div>
+        }
     </>
 }

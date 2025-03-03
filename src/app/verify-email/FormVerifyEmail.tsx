@@ -2,7 +2,7 @@
 
 import InputPinCode from '@/components/client/InputPinCode'
 import {useEffect, useState} from 'react'
-import {verifyEmail} from '@/service/solar'
+import {sendPinCode, verifyEmail} from '@/service/solar'
 import {useToast} from '@/components/client/shadcn/Toast/use-toast'
 import useModal from '@/components/client/Modal/useModal'
 import {clientCheckUserLoggedInAndRedirect, setAuth} from '@/utils'
@@ -33,5 +33,20 @@ export default function FormVerifyBindEmail(props: {email: string}) {
         })()
     }, [code])
 
-    return <InputPinCode onChange={code => {setCode(code)}} />
+    const resendConde = async () => {
+        const modalId = showLoading()
+        try {
+            await sendPinCode({email: props.email})
+        } catch (error: unknown) {
+            toast({
+                title: 'Resend code',
+                description: (error as Error).message ||  'Resend code failed',
+                variant: "destructive",
+            })
+        } finally {
+            closeModal(modalId)
+        }
+    }
+
+    return <InputPinCode onChange={code => {setCode(code)}} onResend={resendConde} />
 }

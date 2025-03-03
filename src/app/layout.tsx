@@ -8,7 +8,10 @@ import {Toaster} from '@/components/client/shadcn/Toast/toaster'
 import Modals from '@/components/client/Modal/Modals'
 import {selectLang} from '@/app/actions'
 import Image from 'next/image'
+import { TrackJSInstall } from "@/app/trackjs_loader"
 // import Script from 'next/script'
+
+TrackJSInstall()
 
 export const metadata: Metadata = {
     title: "Social Layer",
