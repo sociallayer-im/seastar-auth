@@ -5,7 +5,7 @@ import {clientCheckUserLoggedInAndRedirect, setAuth} from '@/utils'
 
 export default function GoogleOauthOptionItem() {
 
-    return <GoogleOAuthProvider clientId="38737182462-6qg5sl6ch58lgsgad7kieoig5parc5j5.apps.googleusercontent.com">
+    return <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!}>
         <CustomBtn/>
     </GoogleOAuthProvider>
 }
