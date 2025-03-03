@@ -6,8 +6,9 @@ import {setVerifiedEmail} from '@/service/solar'
 import {useToast} from '@/components/client/shadcn/Toast/use-toast'
 import useModal from '@/components/client/Modal/useModal'
 import {clientCheckUserLoggedInAndRedirect, getAuth} from '@/utils'
+import {Dictionary} from '@/lang'
 
-export default function FormVerifyBindEmail(props: {email: string}) {
+export default function FormVerifyBindEmail(props: {email: string, lang: Dictionary}) {
     const [code, setCode] = useState('')
     const {toast} = useToast()
     const {showLoading, closeModal} = useModal()
@@ -38,5 +39,5 @@ export default function FormVerifyBindEmail(props: {email: string}) {
         })()
     }, [code])
 
-    return <InputPinCode onChange={code => {setCode(code)}} />
+    return <InputPinCode onChange={code => {setCode(code)}} lang={props.lang} />
 }

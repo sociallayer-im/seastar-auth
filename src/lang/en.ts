@@ -22,7 +22,8 @@ export const en = {
     'Perform OAuth sign-in operations via an email, you will be asked for One-on-one email reply to sign in.': 'Perform OAuth sign-in operations via an email, you will be asked for One-on-one email reply to sign in.',
     'Your ZK email wallet username': 'Your ZK Email wallet username',
     'Should be equal or shorter than 16 characters':'Should be equal or shorter than 16 characters',
-    'Cancel':'Cancel'
+    'Cancel':'Cancel',
+    'Resend Code':'Resend Code',
 }
 
 export type Dictionary = typeof en

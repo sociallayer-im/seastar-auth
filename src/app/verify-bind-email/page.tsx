@@ -25,7 +25,7 @@ export default async function EmailVerification({searchParams}: {
                 {lang['to complete your account set-up']}
             </div>
             <div className="my-6">
-                <FormVerifyBindEmail email={email} />
+                <FormVerifyBindEmail email={email} lang={lang} />
             </div>
         </div>
     </div>

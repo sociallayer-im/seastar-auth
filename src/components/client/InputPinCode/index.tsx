@@ -1,8 +1,9 @@
 import {useRef, useState, useEffect} from 'react'
+import {Dictionary} from '@/lang'
 
 const codeLength = 5
 
-export default function InputPinCode(props: { onChange?: (code: string) => void, onResend?: () => Promise<void> }) {
+export default function InputPinCode(props: {lang:Dictionary, onChange?: (code: string) => void, onResend?: () => Promise<void> }) {
     const [code, setCode] = useState('')
     const inputRef = useRef<HTMLInputElement | null>(null)
 
@@ -69,7 +70,7 @@ export default function InputPinCode(props: { onChange?: (code: string) => void,
         {!!props.onResend &&
             <div onClick={handleResend}
                 className={`text-xs mt-4 text-gray-500 text-right ${seconds !== 0 ? 'pointer-events-none': 'text-blue-500 cursor-pointer'}`}>
-                Resend Code {seconds !== 0 &&
+                {props.lang['Resend Code']} {seconds !== 0 &&
                 <span className="w-8 inline-flex">({seconds}s)</span>
                 }
             </div>
