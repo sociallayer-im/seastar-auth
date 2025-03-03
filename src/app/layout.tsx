@@ -9,7 +9,7 @@ import Modals from '@/components/client/Modal/Modals'
 import {selectLang} from '@/app/actions'
 import Image from 'next/image'
 import { TrackJSInstall } from "@/app/trackjs_loader"
-// import Script from 'next/script'
+import Script from 'next/script'
 
 TrackJSInstall()
 
@@ -30,6 +30,7 @@ export default async function RootLayout({
                 content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
         </Head>
         <body className={`antialiased`}>
+            <Script src="https://analytics.wamo.club/app.sola.day" data-domain="app.sola.day" async />
             {/*<Script src={"https://accounts.google.com/gsi/client"} strategy="lazyOnload"/>*/}
             {/*<Script async src="https://telegram.org/js/telegram-widget.js?22"*/}
             {/*    data-telegram-login="develop_solar_auth_bot" data-size="hidden" data-userpic="false"*/}
