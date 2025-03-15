@@ -20,6 +20,7 @@
   "dependencies": {
     "@farcaster/auth-client": "^0.3.0",
     "@farcaster/auth-kit": "^0.6.0",
+    "@hyperdx/browser": "^0.21.2",
     "@noble/curves": "^1.6.0",
     "@pcd/zuauth": "^1.4.5",
     "@radix-ui/react-dialog": "^1.1.1",

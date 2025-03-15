@@ -9,6 +9,7 @@ import Modals from '@/components/client/Modal/Modals'
 import {selectLang} from '@/app/actions'
 import Image from 'next/image'
 // import { TrackJSInstall } from "@/app/trackjs_loader"
+import HyperDx from '@/components/client/HyperDx'
 
 // TrackJSInstall()
 
@@ -60,6 +61,7 @@ export default async function RootLayout({
             </div>
             <div className="relative z-[9998]"><Modals/></div>
             <div className="relative z-[9999]"><Toaster/></div>
+            <HyperDx />
         </body>
     </html>
     )
