@@ -25,7 +25,7 @@ export default async function RootLayout({
     return (<html lang={langType}>
         <head>
             {/* eslint-disable-next-line @next/next/no-sync-scripts */}
-            <script src="https://analytics.wamo.club/js/script.js" data-domain="app.sola.day" type="text/javascript" />
+            <script src="https://analytics.wamo.club/js/script.js" async data-domain="app.sola.day" type="text/javascript" />
         </head>
         <Head>
             <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
