@@ -2,7 +2,7 @@ import type {Dictionary} from './index'
 
 export const zh: Dictionary = {
     'Social Layer' : 'Social Layer',
-    'Sign In' : '登录',
+    'Sign In' : '用户登录',
     'Email' : '邮箱',
     'Check your inbox': '查看你的收件箱',
     'Enter the code we sent to': '输入我们发送到',
