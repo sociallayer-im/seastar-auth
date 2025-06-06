@@ -13,9 +13,10 @@
     "build-storybook": "storybook build",
     "cypress:open": "cypress open"
   },
-  "resolutions": {
+  "overrides": {
     "@noble/curves": "^1.6.0",
-    "bn.js": "5.2.1"
+    "bn.js": "5.2.1",
+    "strip-ansi": "6.0.0"
   },
   "dependencies": {
     "@farcaster/auth-client": "^0.3.0",
