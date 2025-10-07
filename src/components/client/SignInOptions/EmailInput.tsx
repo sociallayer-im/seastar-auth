@@ -15,7 +15,7 @@ export default function EmailInput(props: { lang: Dictionary }) {
             setError('')
             return
         }
-        if (!email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
+        if (!email.match(/^[\w.-]+@([\w-]+\.)+[\w-]{2,63}$/)) {
             setError('Invalid email')
             return
         }
