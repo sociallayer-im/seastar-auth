@@ -1,0 +1,25 @@
+src/components/client/SignInOptions/WalletOptions.tsx
+  s_34a55d36592cbb::t_a25daee81f6016 44
+src/components/client/SignInOptions/SolanaSignIn/SolanaOptionItem.tsx
+  s_34a55d36592cbb::t_6f0135f096c91d 19
+src/components/client/SignInOptions/WagmiWrapper.tsx
+  s_34a55d36592cbb::t_a25daee81f6016 4,12
+src/components/client/SignInOptions/WalletOptionItem.tsx
+  s_34a55d36592cbb::t_a25daee81f6016 25
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.10",
+  "base_commit_sha": "b711ecdc2ed4fb3a5d854d94bc71ddeccd1c94cd",
+  "prompts": {},
+  "sessions": {
+    "s_34a55d36592cbb": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019e3eae-946c-78c1-b6ab-d2becb9151e0",
+        "model": "gpt-5.5"
+      },
+      "human_author": "jiangplus <jiang.plus.times@gmail.com>"
+    }
+  }
+}
