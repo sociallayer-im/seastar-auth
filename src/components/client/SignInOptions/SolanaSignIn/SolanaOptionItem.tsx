@@ -16,7 +16,7 @@ export default  function SolanaOptionBtn() {
             onClick={showModal}
             className={`cursor-pointer w-full shadow btn btn-md bg-[var(--background)]  mb-3 sm:mb-0 justify-start`}
         >
-            <Image alt="Zupass" src={'/images/solana.png'} width={24} height={24} className="w-6 h-6 mr-2 rounded"/>
+            <Image alt="Solana" src={'/images/solana.png'} width={24} height={24} className="w-6 h-6 mr-2 rounded"/>
             Solana
         </div>
     </>

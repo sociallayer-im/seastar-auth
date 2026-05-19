@@ -22,11 +22,7 @@ export default function WalletOptionItem({
             return connector.icon
         }
 
-        if (connector.name === 'WalletConnect') {
-            return '/images/wallet_connect.webp'
-        } else {
-            return '/images/ethereum.svg'
-        }
+        return '/images/ethereum.svg'
     }, [connector])
 
     const name = connector.name === 'Injected' ? 'Ethereum Wallet' : connector.name

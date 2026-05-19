@@ -5,9 +5,6 @@ Supported sign in methods:
 - Email
 - EVM compatible wallets
 - Solana wallets
-- Zupass
-- Farcaster
-- WorldID
 
 
 ### How to run the project

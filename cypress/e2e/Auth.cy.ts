@@ -156,16 +156,6 @@ describe.skip('Wallet Sign-in', () => {
     })
 })
 
-describe.skip('Zupass Sign-in', () => {
-    it('Zupass Sign-in', () => {
-        cy.visit('/?return=http://localhost:3000/status')
-        cy.contains('Zupass').click()
-        cy.wait(10000)
-        // check return
-        cy.url().should('eq', 'http://localhost:3000/status')
-    })
-})
-
 describe.skip('Solana Sign-in', () => {
     it('Solana Sign-in', () => {
         cy.visit('/?return=http://localhost:3000/status')
@@ -181,50 +171,3 @@ describe.skip('Solana Sign-in', () => {
         cy.url().should('eq', 'http://localhost:3000/status')
     })
 })
-
-describe.skip('Farcast Sign-in', () => {
-    it('Farcast Sign-in', () => {
-        cy.visit('/?return=http://localhost:3000/status')
-
-        cy.wait(5000)
-
-        cy.get('div[data-testid=farcaster-option-item]').click()
-
-        cy.wait(20000)
-
-        // check return
-        cy.url().should('eq', 'http://localhost:3000/register')
-    })
-})
-
-describe('ZK Email Sign-in', () => {
-    it.skip('ZK Email Sign-in', () => {
-        cy.setCookie('lang', 'en')
-        cy.visit('/?return=http://localhost:3000/status')
-        cy.wait(2000)
-        cy.get('a[data-testid=zkemail-option-item]').click()
-        cy.url().should('eq', 'http://localhost:3000/zkemail')
-        cy.get('input[name=email]').type('webdbcosmo@gmail.com')
-        cy.get('button').click()
-        cy.wait(80000)
-
-        // check return
-        cy.url().should('eq', 'http://localhost:3000/status')
-    })
-
-    it('Input username to register new zkemail account if solar account and zkemail account not exist', () => {
-        cy.setCookie('lang', 'en')
-        cy.visit('/?return=http://localhost:3000/status')
-        cy.wait(2000)
-        cy.get('a[data-testid=zkemail-option-item]').click()
-        cy.url().should('eq', 'http://localhost:3000/zkemail')
-        cy.get('input[name=email]').type('webdbcosmo123123123123@gmail.com')
-        cy.get('button').click()
-        cy.wait(1000)
-
-        // check return
-        cy.get('input[name=username]').should('exist')
-    })
-})
-
-

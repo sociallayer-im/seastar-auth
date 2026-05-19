@@ -1,5 +1,4 @@
 import {Connector, useConnect} from 'wagmi'
-import {useMemo} from 'react'
 import WalletOptionItem from '@/components/client/SignInOptions/WalletOptionItem'
 import useSiwe from '@/hooks/useSiwe'
 import {useToast} from '@/components/client/shadcn/Toast/use-toast'
@@ -12,18 +11,6 @@ function OptionsItems() {
     const {siwe} = useSiwe()
     const {toast} = useToast()
     const {showLoading, closeModal} = useModals()
-
-    const sortedConnectors = useMemo(() => {
-        const _connectors: Connector[] = []
-        connectors.forEach((connector: Connector) => {
-            if (connector.name === 'WalletConnect') {
-                _connectors.push(connector)
-            } else {
-                _connectors.unshift(connector)
-            }
-        })
-        return _connectors
-    }, [connectors])
 
     const handleConnect = async (connector: Connector) => {
         const modalId = showLoading()
@@ -54,7 +41,7 @@ function OptionsItems() {
 
     return <>
         {
-            sortedConnectors.map((connector: Connector, index: number) => {
+            connectors.map((connector: Connector, index: number) => {
                 return <WalletOptionItem key={index}
                     onClick={() => handleConnect(connector)}
                     connector={connector}/>
@@ -68,4 +55,3 @@ export default function WalletOptions() {
         <OptionsItems />
     </WagmiWrapper>
 }
-

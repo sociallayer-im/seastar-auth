@@ -19,11 +19,8 @@
     "strip-ansi": "6.0.0"
   },
   "dependencies": {
-    "@farcaster/auth-client": "^0.3.0",
-    "@farcaster/auth-kit": "^0.6.0",
     "@hyperdx/browser": "^0.21.2",
     "@noble/curves": "^1.6.0",
-    "@pcd/zuauth": "^1.4.5",
     "@radix-ui/react-dialog": "^1.1.1",
     "@radix-ui/react-toast": "^1.2.1",
     "@react-oauth/google": "^0.12.1",
@@ -35,8 +32,6 @@
     "@tanstack/react-query": "^5.56.2",
     "@wagmi/connectors": "^5.1.12",
     "@wagmi/core": "^2.13.6",
-    "@worldcoin/minikit-js": "^0.0.36-internal-alpha",
-    "@zk-email/oauth-sdk": "^0.1.3",
     "bn.js": "5.2.1",
     "class-variance-authority": "^0.7.0",
     "ethers": "^6.13.2",
@@ -44,7 +39,6 @@
     "js-sha3": "^0.9.3",
     "jwt-decode": "^4.0.0",
     "lucide-react": "^0.445.0",
-    "mina-signer": "^3.0.7",
     "negotiator": "^0.6.3",
     "next": "14.2.25",
     "pino-pretty": "^11.2.2",

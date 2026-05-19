@@ -72,12 +72,6 @@ body {
     pointer-events: none;
 }
 
-/* hidden telegram widget */
-iframe[id^="telegram-login"] {
-    width: 0px !important;
-    height: 0px !important;
-}
-
 /* wallet connect modal */
 wcm-modal {
     z-index: 99999;
@@ -102,4 +96,3 @@ wcm-modal {
 .google-login-btn div[role="button"] >div:nth-child(2) div  {
     margin-right: 1rem;
 }
-

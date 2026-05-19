@@ -1,6 +1,5 @@
 import type {Metadata} from "next"
 import "@/styles/globals.css"
-import '@farcaster/auth-kit/styles.css'
 import Head from 'next/head'
 import {ReactNode} from "react"
 import LangSwitcher from '@/components/client/LangSwitcher'
@@ -35,9 +34,6 @@ export default async function RootLayout({
         </Head>
         <body className={`antialiased`}>
             {/*<Script src={"https://accounts.google.com/gsi/client"} strategy="lazyOnload"/>*/}
-            {/*<Script async src="https://telegram.org/js/telegram-widget.js?22"*/}
-            {/*    data-telegram-login="develop_solar_auth_bot" data-size="hidden" data-userpic="false"*/}
-            {/*    data-onauth="onTelegramAuth(user)" data-request-access="write" />*/}
             <div className="min-h-[100svh]">
                 <header className="w-full h-[48px] shadow sticky top-0 bg-[var(--background)] z-[999]">
                     <div className="page-width w-full flex-row-item-center justify-between items-center h-[48px]">
