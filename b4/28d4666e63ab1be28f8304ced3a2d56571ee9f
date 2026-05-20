@@ -1,0 +1,19 @@
+src/middleware.ts
+  s_212b3fb8ecd46f::t_7fac0a6fd15c5d 3-4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.11",
+  "base_commit_sha": "b428d4666e63ab1be28f8304ced3a2d56571ee9f",
+  "prompts": {},
+  "sessions": {
+    "s_212b3fb8ecd46f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e6bae81f-00a5-4e13-b16c-f46ae68799f0",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "jiangplus <jiang.plus.times@gmail.com>"
+    }
+  }
+}
