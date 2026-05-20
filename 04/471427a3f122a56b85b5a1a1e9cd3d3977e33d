@@ -1,0 +1,23 @@
+src/components/client/SignInOptions/EmailInput.tsx
+  s_212b3fb8ecd46f::t_1a0b627d874cd7 61,63-66
+src/lang/zh.ts
+  s_212b3fb8ecd46f::t_6647f19b1ac36a 29
+src/lang/en.ts
+  s_212b3fb8ecd46f::t_f8d720615aa81d 27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.11",
+  "base_commit_sha": "04471427a3f122a56b85b5a1a1e9cd3d3977e33d",
+  "prompts": {},
+  "sessions": {
+    "s_212b3fb8ecd46f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e6bae81f-00a5-4e13-b16c-f46ae68799f0",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "jiangplus <jiang.plus.times@gmail.com>"
+    }
+  }
+}
