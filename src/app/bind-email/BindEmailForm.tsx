@@ -3,13 +3,14 @@
 import {Dictionary} from '@/lang'
 import {useState} from 'react'
 import useModal from '@/components/client/Modal/useModal'
-import {getProfileByEmail, getProfileByToken, sendPinCode} from '@/service/solar'
+import {getProfileByEmail, sendPinCode} from '@/service/solar'
 import {getAuth} from '@/utils'
 import {useToast} from '@/components/client/shadcn/Toast/use-toast'
 
 export default function BindEmailForm(props: { lang: Dictionary }) {
     const [error, setError] = useState('')
     const [email, setEmail] = useState('')
+    const [submitting, setSubmitting] = useState(false)
     const {showLoading, closeModal} = useModal()
     const {toast} = useToast()
 
@@ -24,14 +25,11 @@ export default function BindEmailForm(props: { lang: Dictionary }) {
             setError('')
         }
 
+        setSubmitting(true)
         const modalId = showLoading()
         try {
-            const authToken = getAuth()
             const emailTrim = email.trim()
             const checkExist = await getProfileByEmail(emailTrim)
-            const _checkExist = await getProfileByToken(authToken)
-
-            console.log('_checkExist', _checkExist)
 
             if (!!checkExist) {
                 setError('Email is already in use')
@@ -48,6 +46,8 @@ export default function BindEmailForm(props: { lang: Dictionary }) {
                 variant: 'destructive'
             })
             closeModal(modalId)
+        } finally {
+            setSubmitting(false)
         }
     }
 
@@ -64,6 +64,7 @@ export default function BindEmailForm(props: { lang: Dictionary }) {
                 }}/>
         </label>
         <button className="btn btn-primary w-full my-4"
+            disabled={submitting}
             onClick={handleSendPinCode}
         >{props.lang['Continue']}</button>
         <div className="text-red-400 text-sm h-10">{error}</div>

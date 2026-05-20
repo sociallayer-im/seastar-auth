@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState, useRef} from 'react'
 import {Dictionary} from '@/lang'
 import {sendPinCode} from '@/service/solar'
 import {useToast} from '@/components/client/shadcn/Toast/use-toast'
@@ -7,6 +7,7 @@ import useModal from '@/components/client/Modal/useModal'
 export default function EmailInput(props: { lang: Dictionary }) {
     const [email, setEmail] = useState('')
     const [error, setError] = useState('')
+    const submitting = useRef(false)
     const {toast} = useToast()
     const {showLoading, closeModal} = useModal()
 
@@ -22,10 +23,12 @@ export default function EmailInput(props: { lang: Dictionary }) {
         setError('')
 
         if (confirm) {
+            if (submitting.current) return
+            submitting.current = true
             const modalId = showLoading()
             try {
                 await sendPinCode({email})
-                location.href = `/verify-email?email=${email}`
+                location.href = `/verify-email?email=${encodeURIComponent(email)}`
             } catch (e:unknown) {
                 console.error(e)
                 toast({
@@ -34,6 +37,7 @@ export default function EmailInput(props: { lang: Dictionary }) {
                     title: 'Email sign in'
                 })
             } finally {
+                submitting.current = false
                 closeModal(modalId)
             }
         }
