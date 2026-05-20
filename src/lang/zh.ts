@@ -26,4 +26,5 @@ export const zh: Dictionary = {
     'Should be equal or shorter than 16 characters':'应等于或短于 16 个字符',
     'Cancel':'取消',
     'Resend Code':'重新发送验证码',
+    'Go': '登录',
 }

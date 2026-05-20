@@ -58,9 +58,12 @@ export default function EmailInput(props: { lang: Dictionary }) {
                         checkEmail(email, true)
                     }
                 }}/>
-            <i role="button" title="login"
+            <button type="button" title="login"
                 onClick={() => checkEmail(email, true)}
-                className="uil-arrow-right mr-2 text-2xl p-2 cursor-pointer"/>
+                className="flex flex-row items-center gap-1 mr-2 px-2 cursor-pointer text-sm font-medium">
+                {props.lang['Go']}
+                <i className="uil-arrow-right text-2xl"/>
+            </button>
         </label>
         <div className="text-red-400 text-sm my-2">{error}</div>
     </div>

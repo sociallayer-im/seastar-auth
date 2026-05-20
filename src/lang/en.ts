@@ -24,6 +24,7 @@ export const en = {
     'Should be equal or shorter than 16 characters':'Should be equal or shorter than 16 characters',
     'Cancel':'Cancel',
     'Resend Code':'Resend Code',
+    'Go': 'Go',
 }
 
 export type Dictionary = typeof en
