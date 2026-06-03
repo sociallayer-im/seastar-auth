@@ -1,0 +1,23 @@
+src/app/api/google-siginin/route.ts
+  s_212b3fb8ecd46f::t_7f8d508e0a8f40 31
+src/components/client/SignInOptions/EmailInput.tsx
+  s_212b3fb8ecd46f::t_396fa79d5a07d0 15
+src/app/bind-email/BindEmailForm.tsx
+  s_212b3fb8ecd46f::t_56980d68fd16b2 31,40
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.11",
+  "base_commit_sha": "572a2e227188d73c67fb006b8e135db81c2bc1bb",
+  "prompts": {},
+  "sessions": {
+    "s_212b3fb8ecd46f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e6bae81f-00a5-4e13-b16c-f46ae68799f0",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "jiangplus <jiang.plus.times@gmail.com>"
+    }
+  }
+}
