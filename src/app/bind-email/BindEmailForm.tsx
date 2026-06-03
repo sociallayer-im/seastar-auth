@@ -4,7 +4,6 @@ import {Dictionary} from '@/lang'
 import {useState} from 'react'
 import useModal from '@/components/client/Modal/useModal'
 import {getProfileByEmail, sendPinCode} from '@/service/solar'
-import {getAuth} from '@/utils'
 import {useToast} from '@/components/client/shadcn/Toast/use-toast'
 
 export default function BindEmailForm(props: { lang: Dictionary }) {
