@@ -28,7 +28,7 @@ export default function BindEmailForm(props: { lang: Dictionary }) {
         setSubmitting(true)
         const modalId = showLoading()
         try {
-            const emailTrim = email.trim()
+            const emailTrim = email.trim().toLowerCase()
             const checkExist = await getProfileByEmail(emailTrim)
 
             if (!!checkExist) {
@@ -37,7 +37,7 @@ export default function BindEmailForm(props: { lang: Dictionary }) {
                 return
             }
 
-            await sendPinCode({email})
+            await sendPinCode({email: emailTrim})
             location.href = '/verify-bind-email?email=' + encodeURIComponent(emailTrim)
         } catch (e: unknown) {
             toast({

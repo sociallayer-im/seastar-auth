@@ -28,7 +28,7 @@ export async function POST(req: Request) {
         }
 
         const auth_token = await googleLogin({
-            email: data.email,
+            email: data.email.toLowerCase().trim(),
             next_token: process.env.NEXT_TOKEN || ''
         })
 

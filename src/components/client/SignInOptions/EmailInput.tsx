@@ -12,6 +12,7 @@ export default function EmailInput(props: { lang: Dictionary }) {
     const {showLoading, closeModal} = useModal()
 
     const checkEmail = async (email: string, confirm = false) => {
+        email = email.toLowerCase().trim()
         if (!email) {
             setError('')
             return
