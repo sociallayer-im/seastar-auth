@@ -1,0 +1,43 @@
+service: seastar-auth
+image: ghcr.io/sociallayer-im/seastar-auth
+
+runner: nomad
+egress: traefik
+
+servers:
+  web:
+    hosts: [sg.sola.day]
+    primary: true
+
+registry:
+  server: ghcr.io
+  username: jiangplus
+  password: GHCR_TOKEN
+
+proxy:
+  hosts: [auth.sola.day]
+  app_port: 3000
+  ssl: true
+  health_check_path: /api/health
+
+ssh:
+  user: root
+
+builder:
+  arch: amd64
+  remote: ssh://ubuntu@wamo.city
+
+env:
+  NODE_ENV: production
+
+secrets:
+  load: [.env.production]
+  inject:
+    - NEXT_PUBLIC_API_URL
+    - NEXT_PUBLIC_APP_URL
+    - NEXT_PUBLIC_AUTH_FIELD
+    - NEXT_PUBLIC_GOOGLE_CLIENT_ID
+    - NEXT_PUBLIC_THIRD_PARTY_LOGIN
+    - NEXT_TOKEN
+
+retain_containers: 5
