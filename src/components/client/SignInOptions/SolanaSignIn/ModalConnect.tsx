@@ -59,8 +59,8 @@ function ModalConnect() {
                     if (data.result !== 'ok') {
                         throw new Error(data.message)
                     }
-                    setAuth(data.auth_token)
-                    await clientCheckUserLoggedInAndRedirect(data.auth_token)
+                    setAuth(data.token)
+                    await clientCheckUserLoggedInAndRedirect(data.token)
 
                 } catch (e: unknown) {
                     console.error(e)

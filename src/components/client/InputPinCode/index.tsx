@@ -1,7 +1,8 @@
 import {useRef, useState, useEffect} from 'react'
 import {Dictionary} from '@/lang'
 
-const codeLength = 5
+// soon login codes are 6 uppercase alphanumeric characters
+const codeLength = 6
 
 export default function InputPinCode(props: {lang:Dictionary, onChange?: (code: string) => void, onResend?: () => Promise<void> }) {
     const [code, setCode] = useState('')
@@ -10,10 +11,11 @@ export default function InputPinCode(props: {lang:Dictionary, onChange?: (code: 
     const [seconds, setSeconds] = useState(40)
 
     const handleChange = (code: string) => {
-        if (!isNaN(Number(code))) {
-            setCode(code)
+        if (/^[a-zA-Z0-9]*$/.test(code)) {
+            const normalized = code.toUpperCase()
+            setCode(normalized)
             if (props.onChange) {
-                props.onChange(code)
+                props.onChange(normalized)
             }
         }
     }
@@ -58,9 +60,9 @@ export default function InputPinCode(props: {lang:Dictionary, onChange?: (code: 
                 ref={inputRef}
                 autoComplete={'off'}
                 autoFocus={true}
-                maxLength={5}
+                maxLength={codeLength}
                 className="w-full opacity-0 absolute left-0 top-0 h-full bg-[rgba(0,0,0,0)] outline-0 text-[rgba(0,0,0,0)] select-none"
-                type="phone"
+                type="text"
                 name="title"
                 value={code}
                 onSelect={handleFocus}

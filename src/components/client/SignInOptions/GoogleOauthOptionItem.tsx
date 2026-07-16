@@ -43,8 +43,8 @@ function CustomBtn() {
                     return
                 }
 
-                setAuth(data.auth_token)
-                clientCheckUserLoggedInAndRedirect(data.auth_token)
+                setAuth(data.token)
+                clientCheckUserLoggedInAndRedirect(data.token)
             } catch (e: unknown) {
                 toast({
                     title: 'Error',

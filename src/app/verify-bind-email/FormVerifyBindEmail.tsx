@@ -2,7 +2,7 @@
 
 import InputPinCode from '@/components/client/InputPinCode'
 import {useEffect, useState} from 'react'
-import {setVerifiedEmail} from '@/service/solar'
+import {bindEmail} from '@/service/solar'
 import {useToast} from '@/components/client/shadcn/Toast/use-toast'
 import useModal from '@/components/client/Modal/useModal'
 import {clientCheckUserLoggedInAndRedirect, getAuth} from '@/utils'
@@ -15,11 +15,11 @@ export default function FormVerifyBindEmail(props: {email: string, lang: Diction
 
     useEffect(() => {
         ;(async () => {
-            if (code.length === 5) {
+            if (code.length === 6) {
                 const modalId = showLoading()
                 try {
                     const authToken = getAuth()
-                    await setVerifiedEmail({email: props.email, code, auth_token: authToken!})
+                    await bindEmail({email: props.email, code, authToken: authToken!})
                     toast({
                         title: 'Bind Email',
                         description: 'Bind email successfully',

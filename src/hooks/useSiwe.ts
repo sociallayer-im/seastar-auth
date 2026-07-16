@@ -1,5 +1,5 @@
 import {Connector, useConnect, useDisconnect, useSignMessage} from 'wagmi'
-import {signInWithWallet} from '@/service/solar'
+import {AuthResult, getNonce, signInWithWallet} from '@/service/solar'
 
 export default function useSiwe() {
     const {connect} = useConnect()
@@ -10,8 +10,9 @@ export default function useSiwe() {
     const createSiweMessag = async function (address: string) {
         const domain = window.location.host
         const origin = window.location.origin
-        const response = await fetch('/api/nonce')
-        const {nonce} = await response.json()
+        // The nonce comes from the backend and is single-use — the server
+        // rejects any SIWE message whose nonce it didn't mint.
+        const nonce = await getNonce()
         return `${domain} wants you to sign in with your Ethereum account:
 ${address}
 
@@ -50,7 +51,7 @@ Issued At: ${new Date().toISOString()}`
         })
     }
 
-    const siwe = async (connector: Connector): Promise<{ auth_token: string, id: string }> => {
+    const siwe = async (connector: Connector): Promise<AuthResult> => {
         return new Promise(async (resolve, reject) => {
             disconnect(undefined, {
                 onSuccess: async () => {

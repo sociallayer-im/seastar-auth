@@ -11,14 +11,14 @@ export async function POST(req: Request) {
             message: 'Message signature invalid!'
         })
     } else {
-        const auth_token = await signinWithSolana({
+        const token = await signinWithSolana({
             sol_address: address,
             next_token: process.env.NEXT_TOKEN || ''
         })
 
         return NextResponse.json({
             result: 'ok',
-            auth_token: auth_token
+            token
         })
     }
 }

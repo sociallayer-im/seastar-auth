@@ -20,8 +20,8 @@ function OptionsItems() {
 
         try {
             const res = await siwe(connector)
-            setAuth(res.auth_token)
-            clientCheckUserLoggedInAndRedirect(res.auth_token)
+            setAuth(res.token)
+            clientCheckUserLoggedInAndRedirect(res.token)
         } catch (error: unknown) {
             const message = error instanceof Error
                 ? error.message

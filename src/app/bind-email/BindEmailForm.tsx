@@ -3,7 +3,7 @@
 import {Dictionary} from '@/lang'
 import {useState} from 'react'
 import useModal from '@/components/client/Modal/useModal'
-import {getProfileByEmail, sendPinCode} from '@/service/solar'
+import {sendPinCode} from '@/service/solar'
 import {useToast} from '@/components/client/shadcn/Toast/use-toast'
 
 export default function BindEmailForm(props: { lang: Dictionary }) {
@@ -28,15 +28,9 @@ export default function BindEmailForm(props: { lang: Dictionary }) {
         const modalId = showLoading()
         try {
             const emailTrim = email.trim().toLowerCase()
-            const checkExist = await getProfileByEmail(emailTrim)
-
-            if (!!checkExist) {
-                setError('Email is already in use')
-                closeModal(modalId)
-                return
-            }
-
-            await sendPinCode({email: emailTrim})
+            // No lookup-by-email pre-check: the API doesn't expose account
+            // existence (PII). An in-use email is rejected at the verify step.
+            await sendPinCode({email: emailTrim, context: 'bind_email'})
             location.href = '/verify-bind-email?email=' + encodeURIComponent(emailTrim)
         } catch (e: unknown) {
             toast({

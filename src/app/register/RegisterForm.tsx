@@ -3,7 +3,7 @@
 import {Dictionary} from '@/lang'
 import {useEffect, useState} from 'react'
 import useModal from '@/components/client/Modal/useModal'
-import {createProfile, getProfileByHandle, getProfileByToken} from '@/service/solar'
+import {setName, getProfileByName, getProfileByToken} from '@/service/solar'
 import {clientRedirectToReturn, getAuth} from '@/utils'
 import {useToast} from '@/components/client/shadcn/Toast/use-toast'
 
@@ -13,34 +13,21 @@ export default function RegisterForm(props: { lang: Dictionary, prefill?: string
     const {showLoading, closeModal} = useModal()
     const {toast} = useToast()
 
+    // Mirrors soon's username rule: /\A[a-z0-9_]{3,30}\z/
     const handleCheckUsername = (username: string) => {
-        if (!/^[A-Za-z0-9-]+$/.test(username)) {
+        if (!/^[a-z0-9_]+$/.test(username)) {
             return props.lang['Contain the English-language letters and the digits 0-9']
         }
-        if (/^-|-$/.test(username)) {
-            return props.lang['Hyphens can also be used but it can not be used at the beginning and at the end']
+        if (username.length < 3) {
+            return 'Should be equal or longer than 3 characters'
         }
-        if (/--/.test(username)) {
-            return props.lang['Hyphens cannot appear consecutively']
-        }
-        if (username.length < 6) {
-            return props.lang['Should be equal or longer than 6 characters']
-        }
-        if (username.length > 16) {
-            return props.lang['Should be equal or shorter than 16 characters']
+        if (username.length > 30) {
+            return 'Should be equal or shorter than 30 characters'
         }
     }
 
     const checkDomainInput = (domain: string) => {
-        if (domain.startsWith('-')) {
-            return false
-        }
-
-        if (domain.match(/\s/)) {
-            return false
-        }
-
-        return !domain.match(/[`~!@#$%^&*()_+<>?:"{},./\\|=;'[\]]/im)
+        return !domain.match(/[^a-zA-Z0-9_]/)
     }
 
     const handleRegister = async () => {
@@ -49,7 +36,7 @@ export default function RegisterForm(props: { lang: Dictionary, prefill?: string
         const modalId = showLoading()
         try {
             const usernameTrim = username.trim()
-            const checkUserExist = await getProfileByHandle(usernameTrim)
+            const checkUserExist = await getProfileByName(usernameTrim)
             if (!!checkUserExist) {
                 setError('User already exists')
                 closeModal(modalId)
@@ -57,7 +44,7 @@ export default function RegisterForm(props: { lang: Dictionary, prefill?: string
             }
 
             const authToken = getAuth()
-            await createProfile({auth_token: authToken!, handle: usernameTrim})
+            await setName({authToken: authToken!, name: usernameTrim})
 
             const currProfile = await getProfileByToken(authToken)
 

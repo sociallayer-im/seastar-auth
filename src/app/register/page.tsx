@@ -7,7 +7,7 @@ export default async function Register(props: {searchParams : {username: string 
     const lang = (await selectLang()).lang
     const currProfile = await getCurrProfile()
 
-    if (currProfile?.handle) {
+    if (currProfile?.name) {
         redirectToReturn()
     }
 
@@ -20,8 +20,8 @@ export default async function Register(props: {searchParams : {username: string 
             <div className="text-sm text-gray-500 my-2">
                 <ul className="pl-4">
                     <li className="list-disc">{lang['Contain the English-language letters and the digits 0-9']}</li>
-                    <li className="list-disc">{lang['Hyphens can also be used but it can not be used at the beginning and at the end']}</li>
-                    <li className="list-disc">{lang['Should be equal or longer than 6 characters']}</li>
+                    <li className="list-disc">Underscores (_) can also be used</li>
+                    <li className="list-disc">Should be 3 to 30 characters</li>
                 </ul>
             </div>
             <div className="my-4">

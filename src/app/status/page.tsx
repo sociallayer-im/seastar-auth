@@ -38,7 +38,7 @@ const Content = () => {
                     <img src={getAvatar(profile.id, profile.image_url)} className="rounded-full w-20 h-20" alt=""/>
                 </figure>
                 <div className="card-body items-center text-center">
-                    <h2 className="card-title">{profile.nickname || profile.handle}</h2>
+                    <h2 className="card-title">{profile.nickname || profile.name}</h2>
                     <p>Your Account</p>
                     <div className="card-actions">
                         <div className="btn mt-8"

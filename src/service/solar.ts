@@ -1,200 +1,101 @@
 const api = process.env.NEXT_PUBLIC_API_URL
 
+export interface AuthResult {
+    token: string
+    user: { id: string, email: string | null, name: string | null }
+}
+
+// Thin fetch wrapper for the soon API: Bearer auth, JSON body, and real HTTP
+// error codes (the body's {error} message is surfaced on failure).
+const request = async <T>(path: string, opts: {
+    method?: string,
+    body?: Record<string, unknown>,
+    authToken?: string
+} = {}): Promise<T> => {
+    const headers: Record<string, string> = {'Content-Type': 'application/json'}
+    if (opts.authToken) {
+        headers['Authorization'] = `Bearer ${opts.authToken}`
+    }
+
+    const response = await fetch(`${api}/api/v1${path}`, {
+        method: opts.method || 'GET',
+        headers,
+        body: opts.body ? JSON.stringify(opts.body) : undefined,
+        cache: 'no-store'
+    })
+
+    if (!response.ok) {
+        let message = response.statusText
+        try {
+            const data = await response.json()
+            if (data.error) message = data.error
+        } catch { /* non-JSON error body */ }
+        throw new Error(message)
+    }
+
+    return await response.json() as T
+}
+
 export const getNonce = async () => {
-    const response = await fetch(`${api}/siwe/nonce`)
-    const {nonce} = await response.json()
+    const {nonce} = await request<{ nonce: string }>('/auth/nonce')
     return nonce
 }
 
 export const signInWithWallet = async (props: { signature: string, message: string }) => {
-    const response = await fetch(`${api}/siwe/verify`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(props)
-    })
-
-    if (!response.ok) {
-        throw new Error('Failed to sign in with wallet: ' + response.statusText)
-    }
-
-    const data = await response.json()
-    if (data.result !== 'ok') {
-        throw new Error(data.message)
-    }
-
-    return data as { result: 'ok', auth_token: string, id: string }
+    return await request<AuthResult>('/auth/verify_wallet', {method: 'POST', body: props})
 }
 
-export const sendPinCode = async (props: { email: string}) => {
-    const response = await fetch(`${api}/service/send_email`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({...props, context: 'email-signin'})
-    })
-
-    if (!response.ok) {
-        throw new Error('Fail to send pin code: ' + response.statusText)
-    }
-
-    const data = await response.json()
-    if (data.result !== 'ok') {
-        throw new Error(data.message)
-    }
-
-    return data as { result: "ok", email: string }
+export const sendPinCode = async (props: { email: string, context?: 'bind_email' }) => {
+    return await request<{ message: string }>('/auth/request_code', {method: 'POST', body: props})
 }
 
 export const verifyEmail = async (props: { email: string, code: string }) => {
-    const response = await fetch(`${api}/profile/signin_with_email`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(props)
-    })
-
-    if (!response.ok) {
-        throw new Error('Fail to verify email: ' + response.statusText)
-    }
-
-    const data = await response.json()
-    if (data.result !== 'ok') {
-        throw new Error(data.message)
-    }
-
-    return data as { result: "ok", auth_token: string }
+    return await request<AuthResult>('/auth/verify_code', {method: 'POST', body: props})
 }
 
-export const getProfileByToken = async (auth_token?: string) => {
-    if (!auth_token) return null
-    const response = await fetch(`${api}/profile/me?auth_token=${auth_token}`)
-
-    if (!response.ok) {
+export const getProfileByToken = async (authToken?: string) => {
+    if (!authToken) return null
+    try {
+        return await request<Solar.Profile>('/users/me', {authToken})
+    } catch {
         return null
     }
-
-    const data = await response.json()
-    return data.profile as Solar.Profile
 }
 
-export const getProfileByHandle = async (handle: string) => {
-    const response = await fetch(`${api}/profile/get_by_handle?handle=${handle}`)
-
-    if (!response.ok) {
+export const getProfileByName = async (name: string) => {
+    try {
+        return await request<Solar.Profile>(`/users/${encodeURIComponent(name)}`)
+    } catch {
         return null
     }
-
-    const data = await response.json()
-    return data.profile as Solar.Profile
 }
 
-export const createProfile = async (props: {auth_token: string, handle: string}) => {
-    const response = await fetch(`${api}/profile/create`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(props)
+// Sets the username picked on the register screen.
+export const setName = async (props: { authToken: string, name: string }) => {
+    return await request<Solar.Profile>('/users/me', {
+        method: 'PATCH',
+        authToken: props.authToken,
+        body: {user: {name: props.name}}
     })
-
-    if (!response.ok) {
-        throw new Error('Fail to create profile: ' + response.statusText)
-    }
-
-    const data = await response.json()
-    if (data.result !== 'ok') {
-        throw new Error(data.message)
-    }
-
-    return data as { result: "ok" }
 }
 
-export const getProfileByEmail = async (email: string) => {
-    const response = await fetch(`${api}/profile/get_by_email?email=${email}`)
-
-    if (!response.ok) {
-        return null
-    }
-
-    const data = await response.json()
-    return data.profile as Solar.Profile
-}
-
-export const setVerifiedEmail = async (props: {auth_token: string, email: string, code: string}) => {
-    const response = await fetch(`${api}/profile/set_verified_email`, {
+// Attaches a code-verified email to a wallet-first account.
+export const bindEmail = async (props: { authToken: string, email: string, code: string }) => {
+    return await request<Solar.Profile>('/auth/bind_email', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(props)
+        authToken: props.authToken,
+        body: {email: props.email, code: props.code}
     })
-
-    if (!response.ok) {
-        throw new Error('Fail to set verified email: ' + response.statusText)
-    }
-
-    const data = await response.json()
-    if (data.result !== 'ok') {
-        throw new Error(data.message)
-    }
-
-    return data as { result: "ok" }
 }
 
-export const signinWithSolana = async (props: {sol_address: string, next_token: string}) => {
-    const response = await fetch(`${api}/profile/signin_with_solana`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            ...props,
-            address_source: 'solana'
-        })
-    })
-
-    if (!response.ok) {
-        throw new Error('Fail to sign in with solana: ' + response.statusText)
-    }
-
-    const data = await response.json()
-    if (data.result !== 'ok') {
-        throw new Error(data.message)
-    }
-
-    return data.auth_token as string
+// Server-side only: flows the auth service verifies itself (Solana signature,
+// Google OAuth), exchanged for a session via the NEXT_TOKEN shared secret.
+export const signinWithSolana = async (props: { sol_address: string, next_token: string }) => {
+    const res = await request<AuthResult>('/auth/trusted_signin', {method: 'POST', body: props})
+    return res.token
 }
 
-export async function googleLogin(props: {
-    email: string,
-    next_token: string,
-    host?: string
-}) {
-    const url = `${api}/profile/signin_with_google`
-
-    const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            ...props,
-            address_source: 'google'
-        })
-    })
-
-    if (!response.ok) {
-        throw new Error('Fail to sign in with google: ' + response.statusText)
-    }
-
-    const data = await response.json()
-    if (data.result !== 'ok') {
-        throw new Error(data.message)
-    }
-
-    return data.auth_token as string
+export const googleLogin = async (props: { email: string, next_token: string }) => {
+    const res = await request<AuthResult>('/auth/trusted_signin', {method: 'POST', body: props})
+    return res.token
 }

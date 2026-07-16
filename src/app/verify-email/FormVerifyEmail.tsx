@@ -15,12 +15,12 @@ export default function FormVerifyBindEmail(props: {email: string, lang: Diction
 
     useEffect(() => {
         ;(async () => {
-            if (code.length === 5) {
+            if (code.length === 6) {
                 const modalId = showLoading()
                 try {
                     const res = await verifyEmail({email: props.email, code})
-                    setAuth(res.auth_token)
-                    await clientCheckUserLoggedInAndRedirect(res.auth_token)
+                    setAuth(res.token)
+                    await clientCheckUserLoggedInAndRedirect(res.token)
                 } catch (error: unknown) {
                     toast({
                         title: 'Email sign in',

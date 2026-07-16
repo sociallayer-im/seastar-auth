@@ -29,7 +29,7 @@ export const clientRedirectToReturn = () => {
 export const clientCheckUserLoggedInAndRedirect = async (auth_token: string, prefillUsername?: string) => {
     const profile = await getProfileByToken(auth_token)
 
-    if (profile && !profile.handle) {
+    if (profile && !profile.name) {
         let registerUrl = '/register'
         if (prefillUsername) {
             registerUrl = `/register?username=${prefillUsername}`
@@ -42,7 +42,7 @@ export const clientCheckUserLoggedInAndRedirect = async (auth_token: string, pre
     }
 }
 
-export const getAvatar = (id?: number | null, url?: string | null) => {
+export const getAvatar = (id?: string | null, url?: string | null) => {
     if (url) return url
 
     const defAvatars = [

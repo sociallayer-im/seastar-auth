@@ -42,7 +42,7 @@ export const checkUserLoggedInAndRedirect = async function () {
         return
     }
 
-    if (!currProfile.handle) {
+    if (!currProfile.name) {
         redirect('/register')
     } else {
         await redirectToReturn()
