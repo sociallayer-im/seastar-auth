@@ -1,0 +1,60 @@
+type.d.ts
+  s_f621b7e1fcb97a::t_db7743dd8d0335 2-4,6-15,19
+src/app/verify-email/FormVerifyEmail.tsx
+  s_f621b7e1fcb97a::t_e2fec09659f837 18,22-23
+src/app/register/page.tsx
+  s_f621b7e1fcb97a::t_f36cb5f343ac6b 10,23-24
+src/app/actions.ts
+  s_f621b7e1fcb97a::t_e086a0a77b3e9d 45
+src/app/api/google-siginin/route.ts
+  s_f621b7e1fcb97a::t_c33ff64265825f 30,37
+src/service/solar.ts
+  s_f621b7e1fcb97a::t_5d8693088ea3e6 3-5,8-24,28-33,36,39-42,44-46,48-49,53,56-60,65-68,73-78,82-84,86-87,91-95,98-100
+src/hooks/useSiwe.ts
+  s_f621b7e1fcb97a::t_8f7745e77cc3cb 2
+  s_f621b7e1fcb97a::t_456106b6fa43fa 54
+  s_f621b7e1fcb97a::t_18fcd2cc705ca3 13-15
+src/components/client/InputPinCode/index.tsx
+  s_f621b7e1fcb97a::t_c333e1e8e4c964 63,65
+  s_f621b7e1fcb97a::t_0dd2014729a4d0 4-5
+  s_f621b7e1fcb97a::t_70d5a4e15dbae6 14-16,18
+src/utils/index.ts
+  s_f621b7e1fcb97a::t_cc40afe8983b0a 45
+  s_f621b7e1fcb97a::t_8eab39d8e709ad 32
+src/components/client/SignInOptions/SolanaSignIn/ModalConnect.tsx
+  s_f621b7e1fcb97a::t_03a9084e55f50a 62-63
+src/app/register/RegisterForm.tsx
+  s_f621b7e1fcb97a::t_d253a29d96a7eb 16,18,21-22,24-25,30
+  s_f621b7e1fcb97a::t_58a1ec2880af70 6
+  s_f621b7e1fcb97a::t_6c8154bf6cdb9f 39,47
+src/app/verify-bind-email/FormVerifyBindEmail.tsx
+  s_f621b7e1fcb97a::t_f3b6b621d5c50c 5
+  s_f621b7e1fcb97a::t_10d16e8adad441 18,22
+src/app/api/solana-signin/route.ts
+  s_f621b7e1fcb97a::t_1fee9c2bbb3968 14,21
+src/app/status/page.tsx
+  s_f621b7e1fcb97a::t_f36cb5f343ac6b 41
+src/components/client/SignInOptions/WalletOptions.tsx
+  s_f621b7e1fcb97a::t_f0d771a0db95a5 23-24
+src/components/client/SignInOptions/GoogleOauthOptionItem.tsx
+  s_f621b7e1fcb97a::t_99ae8677f4d0df 46-47
+src/app/bind-email/BindEmailForm.tsx
+  s_f621b7e1fcb97a::t_d281cadf1ef2a7 31-33
+  s_f621b7e1fcb97a::t_a1d14c67c4b394 6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "a525b2eb2dbc78694c60c22b0af47533c1cae1d5",
+  "prompts": {},
+  "sessions": {
+    "s_f621b7e1fcb97a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3e5be7fa-d46b-4a5d-9402-cfb18fa1c82c",
+        "model": "claude-fable-5"
+      },
+      "human_author": "jiangplus <jiang.plus.times@gmail.com>"
+    }
+  }
+}
