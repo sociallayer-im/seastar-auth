@@ -1,0 +1,19 @@
+src/service/solar.ts
+  s_366b4800ea8f42::t_fd9f5a2c4d75df 15-23
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "a0941950217df44af72b10ea924c8de87b8ed692",
+  "prompts": {},
+  "sessions": {
+    "s_366b4800ea8f42": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "cf3bb3a9-c679-4178-b31f-48d8d50ea479",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "jiangplus <jiang.plus.times@gmail.com>"
+    }
+  }
+}
