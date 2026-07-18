@@ -12,7 +12,15 @@ const request = async <T>(path: string, opts: {
     body?: Record<string, unknown>,
     authToken?: string
 } = {}): Promise<T> => {
-    const headers: Record<string, string> = {'Content-Type': 'application/json'}
+    // Only set Content-Type when we actually send a body. A bodyless GET with
+    // this header is a non-simple cross-origin request and would force a CORS
+    // preflight; without it, `/auth/nonce` and unauthenticated profile lookups
+    // stay simple requests. (Authenticated GETs still preflight because of the
+    // Authorization header — that's inherent and handled by the API's CORS config.)
+    const headers: Record<string, string> = {}
+    if (opts.body) {
+        headers['Content-Type'] = 'application/json'
+    }
     if (opts.authToken) {
         headers['Authorization'] = `Bearer ${opts.authToken}`
     }
