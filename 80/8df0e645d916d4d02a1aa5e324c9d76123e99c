@@ -1,0 +1,25 @@
+cypress/e2e/Auth.cy.ts
+  s_e9ed806a3d225c::t_b582f725507099 137-142
+README.md
+  s_e9ed806a3d225c::t_10cd90e4554deb 7
+src/service/solar.ts
+  s_e9ed806a3d225c::t_5df32f211733fd 99-102
+bun.lock
+  s_e9ed806a3d225c::t_6575156b8b768f 379,381,383,385,533,705,1203,1251,1337,2431,2649,2713,2947,2953,2955,2985-2986,3045,3049-3050,3093,3117,3119,3121,3247-3248,3257-3258,3375-3376,3397-3398,3439-3440,3505-3506,3515,3525,3547-3552,3661-3666,3681-3683,3685,3697,3701,3745,3783
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "808df0e645d916d4d02a1aa5e324c9d76123e99c",
+  "prompts": {},
+  "sessions": {
+    "s_e9ed806a3d225c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "931f6a9c-6836-4bdb-a9b8-4af9de9ee16d",
+        "model": "claude-opus-5"
+      },
+      "human_author": "jiangplus <jiang.plus.times@gmail.com>"
+    }
+  }
+}
