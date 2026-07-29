@@ -61,12 +61,16 @@ describe('Email Sign-in', () => {
         cy.url().should('include', '/register')
 
         // getProfileByName -> GET /users/:name; a 404 means the name is free.
+        // RegisterForm's checkDomainInput only accepts [a-zA-Z0-9_] — a "-"
+        // keystroke is silently dropped by the input's onChange guard, so
+        // usernames here must stay hyphen-free or the typed value won't match
+        // what's actually submitted.
         cy.intercept('get', `${api}/api/v1/users/ppnnsspp`, {statusCode: 404, body: {error: 'Not found'}})
-        cy.intercept('get', `${api}/api/v1/users/ppnnsspp-2`, {statusCode: 200, body: {id: '9', name: 'ppnnsspp-2'}})
+        cy.intercept('get', `${api}/api/v1/users/ppnnsspp2`, {statusCode: 200, body: {id: '9', name: 'ppnnsspp2'}})
         cy.intercept('patch', `${api}/api/v1/users/me`, {statusCode: 200, body: {id: '2', name: 'ppnnsspp'}})
 
         // taken: 200 = a user with that name exists
-        cy.get('[data-testid="username-input"]').type('ppnnsspp-2')
+        cy.get('[data-testid="username-input"]').type('ppnnsspp2')
         cy.get('button').contains(/continue|register|confirm/i).click()
         cy.contains('User already exists').should('exist')
 
