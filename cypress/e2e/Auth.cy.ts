@@ -134,31 +134,17 @@ describe('Middleware', () => {
     })
 })
 
-// These two need a real (or automated) wallet extension — MetaMask/Phantom —
-// to sign a message, which cy.intercept can't fake; they were unmocked and
-// flaky before the sails->soon migration too. Keeping them skipped is
-// legitimate (this needs wallet-automation tooling like @synthetixio/synpress,
-// not an endpoint fix), but documenting why so it doesn't read as "still
-// broken like everything else in this file used to be."
+// Needs a real (or automated) wallet extension — MetaMask — to sign a message,
+// which cy.intercept can't fake; it was unmocked and flaky before the
+// sails->soon migration too. Keeping it skipped is legitimate (this needs
+// wallet-automation tooling like @synthetixio/synpress, not an endpoint fix),
+// but documenting why so it doesn't read as "still broken like everything else
+// in this file used to be."
 describe('Wallet Sign-in', () => {
     it.skip('MetaMask Sign-in — requires wallet-extension automation (synpress); not covered here', () => {
         cy.visit('/?return=http://localhost:3000/status')
         cy.contains('MetaMask').click()
         cy.wait(10000)
-        cy.url().should('eq', 'http://localhost:3000/status')
-    })
-})
-
-describe('Solana Sign-in', () => {
-    it.skip('Solana Sign-in — requires wallet-extension automation (synpress); not covered here', () => {
-        cy.visit('/?return=http://localhost:3000/status')
-        cy.contains('Solana').click()
-
-        cy.wait(1000)
-        cy.get('button[data-testid=solana-sigin-in-wallet]').click()
-        cy.get('button[data-testid=solana-sigin-in-btn]').click()
-        cy.wait(5000)
-
         cy.url().should('eq', 'http://localhost:3000/status')
     })
 })

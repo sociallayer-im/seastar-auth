@@ -4,7 +4,7 @@ This is a Social Layer authentication protocol that allows users to sign in with
 Supported sign in methods:
 - Email
 - EVM compatible wallets
-- Solana wallets
+- Google
 
 
 ### How to run the project

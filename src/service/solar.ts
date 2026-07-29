@@ -96,13 +96,10 @@ export const bindEmail = async (props: { authToken: string, email: string, code:
     })
 }
 
-// Server-side only: flows the auth service verifies itself (Solana signature,
-// Google OAuth), exchanged for a session via the NEXT_TOKEN shared secret.
-export const signinWithSolana = async (props: { sol_address: string, next_token: string }) => {
-    const res = await request<AuthResult>('/auth/trusted_signin', {method: 'POST', body: props})
-    return res.token
-}
-
+// Server-side only: Google OAuth, which the auth service verifies itself and
+// exchanges for a session via the NEXT_TOKEN shared secret. The backend's
+// /auth/trusted_signin still accepts a sol_address branch for the retired
+// Solana flow; nothing here calls it any more.
 export const googleLogin = async (props: { email: string, next_token: string }) => {
     const res = await request<AuthResult>('/auth/trusted_signin', {method: 'POST', body: props})
     return res.token
