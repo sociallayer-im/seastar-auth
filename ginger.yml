@@ -34,6 +34,12 @@ ssh:
 builder:
   arch: amd64
   remote: ssh://ubuntu@wamo.city
+  # ginger defaults to mode=min, which exports only the final stage. The
+  # `bun install` here is in the `build` stage, so min never cached it in the
+  # registry. This service is a rollback target now and rarely rebuilt — which
+  # is exactly when a local-only buildkit cache has gone cold, so the registry
+  # copy matters more here than anywhere else.
+  cache: max
 
 env:
   NODE_ENV: production

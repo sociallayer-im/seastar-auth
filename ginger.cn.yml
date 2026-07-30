@@ -33,6 +33,8 @@ builder:
   remote: ssh://ubuntu@wamo.city
   # Push to the Singapore mirror; juluo pulls the same image from registry.juluo.xyz.
   push_registry: mirror-registry.sola.day
+  # See ginger.yml — min would leave `bun install` out of the registry cache.
+  cache: max
 
 env:
   NODE_ENV: production
