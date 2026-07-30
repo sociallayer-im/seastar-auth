@@ -15,7 +15,15 @@ registry:
   password: GHCR_TOKEN
 
 proxy:
-  hosts: [auth.sola.day]
+  # Moved off auth.sola.day: the sign-in screens now live in seastar-app, which
+  # serves that host (its middleware rewrites '/' to /signin) so the sign-in URLs
+  # already in circulation keep working. This app stays deployed here as the
+  # rollback target — id.sola.day is a CNAME to sg.sola.day, same as every other
+  # subdomain, DNS-only so Traefik keeps issuing its own certificate.
+  #
+  # Release order matters: Traefik's behaviour is undefined while two services
+  # claim the same Host rule, so deploy THIS first, then seastar-app.
+  hosts: [id.sola.day]
   app_port: 3000
   ssl: true
   health_check_path: /api/health
