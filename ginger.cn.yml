@@ -17,7 +17,9 @@ registry:
   password: YATCH_TOKEN          # resolved from .env.cn.production
 
 proxy:
-  hosts: [auth.juluo.xyz]
+  # See ginger.yml — same move, CN side. *.juluo.xyz is wildcard-resolved to the
+  # single host, so id.juluo.xyz needed no DNS change.
+  hosts: [id.juluo.xyz]
   app_port: 3000
   ssl: true
   health_check_path: /api/health
