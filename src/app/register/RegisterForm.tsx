@@ -13,13 +13,13 @@ export default function RegisterForm(props: { lang: Dictionary, prefill?: string
     const {showLoading, closeModal} = useModal()
     const {toast} = useToast()
 
-    // Mirrors soon's username rule: /\A[a-z0-9_]{3,30}\z/
+    // Mirrors soon's username rule: /\A[a-z0-9_]{6,30}\z/
     const handleCheckUsername = (username: string) => {
         if (!/^[a-z0-9_]+$/.test(username)) {
             return props.lang['Contain the English-language letters and the digits 0-9']
         }
-        if (username.length < 3) {
-            return 'Should be equal or longer than 3 characters'
+        if (username.length < 6) {
+            return 'Should be equal or longer than 6 characters'
         }
         if (username.length > 30) {
             return 'Should be equal or shorter than 30 characters'
